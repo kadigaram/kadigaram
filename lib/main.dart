@@ -55,13 +55,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   String _localTime;
 
   var _kizhamai = [
-    'ஞாயிற்றுக்கிழமை',
+    'none',
     'திங்கட்கிழமை',
     'செவ்வாய்',
     'புதன்கிழமை',
     'வியாழன்',
     'வெள்ளி',
     'சனிக்கிழமை',
+    'ஞாயிற்றுக்கிழமை',
   ];
 
   var _muhurtham = [
@@ -200,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void _incrementCounter() {
     DateTime today = new DateTime.now();
     setState(() {
+      print(today.weekday.toString());
       _localTime = "இன்று:  ${today.month.toString().padLeft(2,'0')}/${today.day.toString().padLeft(2,'0')}  "
           "${_kizhamai[today.weekday]}  "
           "${today.hour.toString().padLeft(2,'0')}:${today.minute.toString().padLeft(2,'0')}:${today.second.toString().padLeft(2,'0')}";
