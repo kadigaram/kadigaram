@@ -10,15 +10,11 @@
 		BB0B20B22F15D26400EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20B12F15D26400EEC814 /* KadigaramCore */; };
 		BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20BC2F15D34700EEC814 /* DashboardViewModel.swift */; };
 		BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20B52F15D34700EEC814 /* KadigaramApp.swift */; };
-		BB0B20C32F15D34700EEC814 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20BB2F15D34700EEC814 /* DashboardView.swift */; };
 		BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20B82F15D34700EEC814 /* DualDateHeader.swift */; };
 		BB0B20CC2F15D63200EEC814 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */; };
 		BB0B20CE2F15D63200EEC814 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */; };
 		BB0B20DD2F15D63300EEC814 /* KadigaramWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BB0B20EC2F15D9FD00EEC814 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20E72F15D83A00EEC814 /* SettingsView.swift */; };
-		BB0B20ED2F15DA4100EEC814 /* LanguageToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */; };
 		BB0B20F12F15DC7100EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20F02F15DC7100EEC814 /* KadigaramCore */; };
-		BB0B20F52F1738E100EEC814 /* InfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20F42F1738E100EEC814 /* InfoCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,9 +51,6 @@
 		BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KadigaramWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageToggle.swift; sourceTree = "<group>"; };
-		BB0B20E72F15D83A00EEC814 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		BB0B20F42F1738E100EEC814 /* InfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -66,6 +59,8 @@
 			membershipExceptions = (
 				App/KadigaramApp.swift,
 				Info.plist,
+				UI/Components/DualDateHeader.swift,
+				UI/Screens/DashboardViewModel.swift,
 			);
 			target = BB0B208D2F15CE7400EEC814 /* kadigaram */;
 		};
@@ -163,9 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				BB0B20F82F17391E00EEC814 /* Fonts */,
-				BB0B20F42F1738E100EEC814 /* InfoCard.swift */,
-				BB0B20E72F15D83A00EEC814 /* SettingsView.swift */,
-				BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */,
 				BB0B20BF2F15D34700EEC814 /* Kadigaram */,
 				BB0B20AF2F15D17000EEC814 /* KadigaramCore */,
 				BB0B20AB2F15CF6300EEC814 /* Kadigaram */,
@@ -388,12 +380,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB0B20ED2F15DA4100EEC814 /* LanguageToggle.swift in Sources */,
 				BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */,
 				BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */,
-				BB0B20EC2F15D9FD00EEC814 /* SettingsView.swift in Sources */,
-				BB0B20C32F15D34700EEC814 /* DashboardView.swift in Sources */,
-				BB0B20F52F1738E100EEC814 /* InfoCard.swift in Sources */,
 				BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
