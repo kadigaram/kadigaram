@@ -1,0 +1,702 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BB0B20B22F15D26400EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20B12F15D26400EEC814 /* KadigaramCore */; };
+		BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20BC2F15D34700EEC814 /* DashboardViewModel.swift */; };
+		BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20B52F15D34700EEC814 /* KadigaramApp.swift */; };
+		BB0B20C32F15D34700EEC814 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20BB2F15D34700EEC814 /* DashboardView.swift */; };
+		BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20B82F15D34700EEC814 /* DualDateHeader.swift */; };
+		BB0B20CC2F15D63200EEC814 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */; };
+		BB0B20CE2F15D63200EEC814 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */; };
+		BB0B20DD2F15D63300EEC814 /* KadigaramWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BB0B20EC2F15D9FD00EEC814 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20E72F15D83A00EEC814 /* SettingsView.swift */; };
+		BB0B20ED2F15DA4100EEC814 /* LanguageToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */; };
+		BB0B20F12F15DC7100EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20F02F15DC7100EEC814 /* KadigaramCore */; };
+		BB0B20F52F1738E100EEC814 /* InfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B20F42F1738E100EEC814 /* InfoCard.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BB0B20DB2F15D63300EEC814 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BB0B20862F15CE7400EEC814 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB0B20C92F15D63200EEC814;
+			remoteInfo = KadigaramWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BB0B20E22F15D63300EEC814 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BB0B20DD2F15D63300EEC814 /* KadigaramWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BB0B208E2F15CE7400EEC814 /* kadigaram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kadigaram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0B20AF2F15D17000EEC814 /* KadigaramCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = KadigaramCore; sourceTree = "<group>"; };
+		BB0B20B52F15D34700EEC814 /* KadigaramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KadigaramApp.swift; sourceTree = "<group>"; };
+		BB0B20B82F15D34700EEC814 /* DualDateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DualDateHeader.swift; sourceTree = "<group>"; };
+		BB0B20BB2F15D34700EEC814 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		BB0B20BC2F15D34700EEC814 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KadigaramWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageToggle.swift; sourceTree = "<group>"; };
+		BB0B20E72F15D83A00EEC814 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB0B20F42F1738E100EEC814 /* InfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCard.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BB0B20C52F15D45B00EEC814 /* Exceptions for "kadigaram" folder in "kadigaram" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/KadigaramApp.swift,
+				Info.plist,
+			);
+			target = BB0B208D2F15CE7400EEC814 /* kadigaram */;
+		};
+		BB0B20E12F15D63300EEC814 /* Exceptions for "KadigaramWidget" folder in "KadigaramWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BB0B20C92F15D63200EEC814 /* KadigaramWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BB0B20902F15CE7400EEC814 /* kadigaram */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BB0B20C52F15D45B00EEC814 /* Exceptions for "kadigaram" folder in "kadigaram" target */,
+			);
+			path = kadigaram;
+			sourceTree = "<group>";
+		};
+		BB0B20CF2F15D63200EEC814 /* KadigaramWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BB0B20E12F15D63300EEC814 /* Exceptions for "KadigaramWidget" folder in "KadigaramWidgetExtension" target */,
+			);
+			path = KadigaramWidget;
+			sourceTree = "<group>";
+		};
+		BB0B20FC2F1743B900EEC814 /* en.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		BB0B20FF2F1743B900EEC814 /* sa.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = sa.lproj;
+			sourceTree = "<group>";
+		};
+		BB0B21022F1743B900EEC814 /* ta.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ta.lproj;
+			sourceTree = "<group>";
+		};
+		BB0B21052F1743B900EEC814 /* te.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = te.lproj;
+			sourceTree = "<group>";
+		};
+		BB0B210C2F17467A00EEC814 /* kn.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = kn.lproj;
+			sourceTree = "<group>";
+		};
+		BB0B210F2F17467A00EEC814 /* ml.lproj */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ml.lproj;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BB0B208B2F15CE7400EEC814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0B20B22F15D26400EEC814 /* KadigaramCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB0B20C72F15D63200EEC814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0B20F12F15DC7100EEC814 /* KadigaramCore in Frameworks */,
+				BB0B20CE2F15D63200EEC814 /* SwiftUI.framework in Frameworks */,
+				BB0B20CC2F15D63200EEC814 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BB0B20852F15CE7400EEC814 = {
+			isa = PBXGroup;
+			children = (
+				BB0B20F82F17391E00EEC814 /* Fonts */,
+				BB0B20F42F1738E100EEC814 /* InfoCard.swift */,
+				BB0B20E72F15D83A00EEC814 /* SettingsView.swift */,
+				BB0B20E52F15D81300EEC814 /* LanguageToggle.swift */,
+				BB0B20BF2F15D34700EEC814 /* Kadigaram */,
+				BB0B20AF2F15D17000EEC814 /* KadigaramCore */,
+				BB0B20AB2F15CF6300EEC814 /* Kadigaram */,
+				BB0B20902F15CE7400EEC814 /* kadigaram */,
+				BB0B20CF2F15D63200EEC814 /* KadigaramWidget */,
+				BB0B20B02F15D26400EEC814 /* Frameworks */,
+				BB0B208F2F15CE7400EEC814 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BB0B208F2F15CE7400EEC814 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B208E2F15CE7400EEC814 /* kadigaram.app */,
+				BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BB0B20AB2F15CF6300EEC814 /* Kadigaram */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Kadigaram;
+			sourceTree = "<group>";
+		};
+		BB0B20B02F15D26400EEC814 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */,
+				BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB0B20B62F15D34700EEC814 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20B52F15D34700EEC814 /* KadigaramApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BB0B20B72F15D34700EEC814 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B210C2F17467A00EEC814 /* kn.lproj */,
+				BB0B210F2F17467A00EEC814 /* ml.lproj */,
+				BB0B20FC2F1743B900EEC814 /* en.lproj */,
+				BB0B20FF2F1743B900EEC814 /* sa.lproj */,
+				BB0B21022F1743B900EEC814 /* ta.lproj */,
+				BB0B21052F1743B900EEC814 /* te.lproj */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BB0B20BA2F15D34700EEC814 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20B82F15D34700EEC814 /* DualDateHeader.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BB0B20BD2F15D34700EEC814 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20BB2F15D34700EEC814 /* DashboardView.swift */,
+				BB0B20BC2F15D34700EEC814 /* DashboardViewModel.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		BB0B20BE2F15D34700EEC814 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20BA2F15D34700EEC814 /* Components */,
+				BB0B20BD2F15D34700EEC814 /* Screens */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		BB0B20BF2F15D34700EEC814 /* Kadigaram */ = {
+			isa = PBXGroup;
+			children = (
+				BB0B20B62F15D34700EEC814 /* App */,
+				BB0B20B72F15D34700EEC814 /* Resources */,
+				BB0B20BE2F15D34700EEC814 /* UI */,
+			);
+			path = Kadigaram;
+			sourceTree = "<group>";
+		};
+		BB0B20F82F17391E00EEC814 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BB0B208D2F15CE7400EEC814 /* kadigaram */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB0B20992F15CE7400EEC814 /* Build configuration list for PBXNativeTarget "kadigaram" */;
+			buildPhases = (
+				BB0B208A2F15CE7400EEC814 /* Sources */,
+				BB0B208B2F15CE7400EEC814 /* Frameworks */,
+				BB0B208C2F15CE7400EEC814 /* Resources */,
+				BB0B20E22F15D63300EEC814 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB0B20DC2F15D63300EEC814 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BB0B20902F15CE7400EEC814 /* kadigaram */,
+				BB0B20FC2F1743B900EEC814 /* en.lproj */,
+				BB0B20FF2F1743B900EEC814 /* sa.lproj */,
+				BB0B21022F1743B900EEC814 /* ta.lproj */,
+				BB0B21052F1743B900EEC814 /* te.lproj */,
+				BB0B210C2F17467A00EEC814 /* kn.lproj */,
+				BB0B210F2F17467A00EEC814 /* ml.lproj */,
+			);
+			name = kadigaram;
+			packageProductDependencies = (
+				BB0B20B12F15D26400EEC814 /* KadigaramCore */,
+			);
+			productName = kadigaram;
+			productReference = BB0B208E2F15CE7400EEC814 /* kadigaram.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BB0B20C92F15D63200EEC814 /* KadigaramWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB0B20DE2F15D63300EEC814 /* Build configuration list for PBXNativeTarget "KadigaramWidgetExtension" */;
+			buildPhases = (
+				BB0B20C62F15D63200EEC814 /* Sources */,
+				BB0B20C72F15D63200EEC814 /* Frameworks */,
+				BB0B20C82F15D63200EEC814 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BB0B20CF2F15D63200EEC814 /* KadigaramWidget */,
+			);
+			name = KadigaramWidgetExtension;
+			packageProductDependencies = (
+				BB0B20F02F15DC7100EEC814 /* KadigaramCore */,
+			);
+			productName = KadigaramWidgetExtension;
+			productReference = BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BB0B20862F15CE7400EEC814 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					BB0B208D2F15CE7400EEC814 = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+					BB0B20C92F15D63200EEC814 = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+				};
+			};
+			buildConfigurationList = BB0B20892F15CE7400EEC814 /* Build configuration list for PBXProject "kadigaram" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				hi,
+				ta,
+				te,
+				ml,
+				kn,
+				sa,
+			);
+			mainGroup = BB0B20852F15CE7400EEC814;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BB0B208F2F15CE7400EEC814 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BB0B208D2F15CE7400EEC814 /* kadigaram */,
+				BB0B20C92F15D63200EEC814 /* KadigaramWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BB0B208C2F15CE7400EEC814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB0B20C82F15D63200EEC814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BB0B208A2F15CE7400EEC814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0B20ED2F15DA4100EEC814 /* LanguageToggle.swift in Sources */,
+				BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */,
+				BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */,
+				BB0B20EC2F15D9FD00EEC814 /* SettingsView.swift in Sources */,
+				BB0B20C32F15D34700EEC814 /* DashboardView.swift in Sources */,
+				BB0B20F52F1738E100EEC814 /* InfoCard.swift in Sources */,
+				BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB0B20C62F15D63200EEC814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BB0B20DC2F15D63300EEC814 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB0B20C92F15D63200EEC814 /* KadigaramWidgetExtension */;
+			targetProxy = BB0B20DB2F15D63300EEC814 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BB0B20972F15CE7400EEC814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BB0B20982F15CE7400EEC814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BB0B209A2F15CE7400EEC814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = kadigaram/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BB0B209B2F15CE7400EEC814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = kadigaram/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BB0B20DF2F15D63300EEC814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KadigaramWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KadigaramWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram.KadigaramWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BB0B20E02F15D63300EEC814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZFU93X4XZM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KadigaramWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KadigaramWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram.KadigaramWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BB0B20892F15CE7400EEC814 /* Build configuration list for PBXProject "kadigaram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB0B20972F15CE7400EEC814 /* Debug */,
+				BB0B20982F15CE7400EEC814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB0B20992F15CE7400EEC814 /* Build configuration list for PBXNativeTarget "kadigaram" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB0B209A2F15CE7400EEC814 /* Debug */,
+				BB0B209B2F15CE7400EEC814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB0B20DE2F15D63300EEC814 /* Build configuration list for PBXNativeTarget "KadigaramWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB0B20DF2F15D63300EEC814 /* Debug */,
+				BB0B20E02F15D63300EEC814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BB0B20B12F15D26400EEC814 /* KadigaramCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KadigaramCore;
+		};
+		BB0B20F02F15DC7100EEC814 /* KadigaramCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KadigaramCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = BB0B20862F15CE7400EEC814 /* Project object */;
+}

@@ -1,0 +1,10 @@
+/* Malayalam Localizations */
+"dashboard_gregorian" = "ഗ്രിഗോറിയൻ തീയതി";
+"dashboard_vedic" = "പഞ്ചാംഗം";
+"year_krodhi" = "ക്രോധി വർഷം";
+"month_margazhi" = "ധനു";
+"month_pausha" = "മകരം";
+"tithi_ekadashi" = "ഏകാദശി";
+"nakshatra_visakam" = "വിശാഖം";
+"label_tithi" = "തിഥി";
+"label_nakshatra" = "നക്ഷത്രം";

@@ -1,1 +1,7 @@
-android/key.properties
+.DS_Store
+.build/
+.swiftpm/
+DerivedData/
+Packages/
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.playground

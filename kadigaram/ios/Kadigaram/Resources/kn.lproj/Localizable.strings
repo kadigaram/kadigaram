@@ -1,0 +1,10 @@
+/* Kannada Localizations */
+"dashboard_gregorian" = "ಗ್ರೆಗೋರಿಯನ್ ದಿನಾಂಕ";
+"dashboard_vedic" = "ಪಂಚಾಂಗ";
+"year_krodhi" = "ಕ್ರೋಧಿ ಸಂವತ್ಸರ";
+"month_margazhi" = "ಮಾರ್ಗಶಿರ";
+"month_pausha" = "ಪುಷ್ಯ";
+"tithi_ekadashi" = "ಏಕಾದಶಿ";
+"nakshatra_visakam" = "ವಿಶಾಖ";
+"label_tithi" = "ತಿಥಿ";
+"label_nakshatra" = "ನಕ್ಷತ್ರ";

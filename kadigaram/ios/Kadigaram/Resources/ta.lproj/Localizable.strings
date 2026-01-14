@@ -1,0 +1,10 @@
+/* Tamil Localizations */
+"dashboard_gregorian" = "ஆங்கில தேதி";
+"dashboard_vedic" = "பஞ்சாங்கம்";
+"year_krodhi" = "குரோதி வருடம்";
+"month_margazhi" = "மார்கழி";
+"month_pausha" = "தை";
+"tithi_ekadashi" = "ஏகாதசி";
+"nakshatra_visakam" = "விசாகம்";
+"label_tithi" = "திதி";
+"label_nakshatra" = "நட்சத்திரம்";

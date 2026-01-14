@@ -1,0 +1,10 @@
+/* Sanskrit Localizations */
+"dashboard_gregorian" = "ग्रेगोरियन दिनांक";
+"dashboard_vedic" = "पञ्चाङ्गम्";
+"year_krodhi" = "क्रोधि संवत्सरः";
+"month_margazhi" = "मार्गशीर्षः";
+"month_pausha" = "पौषः";
+"tithi_ekadashi" = "एकादशी";
+"nakshatra_visakam" = "विशाखा";
+"label_tithi" = "तिथिः";
+"label_nakshatra" = "नक्षत्रम्";
