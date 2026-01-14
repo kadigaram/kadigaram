@@ -76,6 +76,13 @@
 			);
 			target = BB0B20C92F15D63200EEC814 /* KadigaramWidgetExtension */;
 		};
+		BB0B21122F1760E100EEC814 /* Exceptions for "en.lproj" folder in "kadigaram" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Localizable.strings",
+			);
+			target = BB0B208D2F15CE7400EEC814 /* kadigaram */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -97,6 +104,9 @@
 		};
 		BB0B20FC2F1743B900EEC814 /* en.lproj */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BB0B21122F1760E100EEC814 /* Exceptions for "en.lproj" folder in "kadigaram" target */,
+			);
 			path = en.lproj;
 			sourceTree = "<group>";
 		};

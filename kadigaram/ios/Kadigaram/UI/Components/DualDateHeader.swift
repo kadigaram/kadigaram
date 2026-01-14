@@ -23,9 +23,16 @@ struct DualDateHeader: View {
             
             // Bottom Line: Vedic (Using localized keys checking BhashaEngine)
             // We translate the keys provided by vedicDate
-            Text("\(bhashaEngine.localizedString(vedicDate.samvatsara)) • \(bhashaEngine.localizedString(vedicDate.maasa)) \(vedicDate.day) • \(bhashaEngine.localizedString(vedicDate.tithi))")
-                .font(.headline)
-                .foregroundColor(.secondary)
+            HStack(spacing: 8) {
+                // Moon Phase Icon
+                MoonPhaseView(paksha: vedicDate.paksha, illumination: vedicDate.pakshamIllumination)
+                    .foregroundStyle(.secondary)
+                
+                Text("\(bhashaEngine.localizedString(vedicDate.samvatsara)) • \(bhashaEngine.localizedString(vedicDate.maasa)) \(vedicDate.day) • \(bhashaEngine.localizedString(vedicDate.tithi))")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
         }
         .padding()
         .background(Color.secondary.opacity(0.1))
