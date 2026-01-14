@@ -1,0 +1,10 @@
+/* Telugu Localizations */
+"dashboard_gregorian" = "గ్రిగోరియన్ తేదీ";
+"dashboard_vedic" = "పంచాంగం";
+"year_krodhi" = "క్రోధి నామ సంవత్సరం";
+"month_margazhi" = "మార్గశిర";
+"month_pausha" = "పుష్యమాసం";
+"tithi_ekadashi" = "ఏకాదశి";
+"nakshatra_visakam" = "విశాఖ";
+"label_tithi" = "తిథి";
+"label_nakshatra" = "నక్షత్రం";

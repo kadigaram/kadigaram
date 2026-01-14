@@ -1,0 +1,10 @@
+/* English Localizations */
+"dashboard_gregorian" = "Gregorian Date";
+"dashboard_vedic" = "Vedic Date";
+"year_krodhi" = "Krodhi Year";
+"month_margazhi" = "Margazhi";
+"month_pausha" = "Pausha";
+"tithi_ekadashi" = "Ekadashi";
+"nakshatra_visakam" = "Visakam";
+"label_tithi" = "Tithi";
+"label_nakshatra" = "Nakshatra";
