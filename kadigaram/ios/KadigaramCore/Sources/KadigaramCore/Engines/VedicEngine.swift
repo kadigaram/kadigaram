@@ -42,7 +42,7 @@ public class VedicEngine: VedicEngineProvider {
         
         // Percent elapsed for day (assuming 12 hour day roughly or calculating actual day length)
         // Day length = Sunset - Sunrise
-        let dayLength = sunset.timeIntervalSince(sunrise)
+        let _ = sunset.timeIntervalSince(sunrise)
         let isDaytime = date >= sunrise && date < sunset
         
         // Percent for wheel (0-1.0 over 60 Nazhigai? Or over Day/Night?)
@@ -86,7 +86,7 @@ public class VedicEngine: VedicEngineProvider {
         // For accurate results, would need SwissEph or similar ephemeris library
         
         let year = Calendar.current.component(.year, from: date)
-        let month = Calendar.current.component(.month, from: date)
+        let _ = Calendar.current.component(.month, from: date)
         let day = Calendar.current.component(.day, from: date)
         
         // Get Samvatsara (60-year cycle)

@@ -44,8 +44,29 @@ class DashboardViewModel: ObservableObject {
     
     func updateTime() {
         currentDate = Date()
-        let loc = locationManager.location ?? defaultLocation
-        let timeZone = TimeZone.current
+        
+        let loc: CLLocationCoordinate2D
+        let timeZone: TimeZone
+        
+        if appConfig.isManualLocation {
+            loc = CLLocationCoordinate2D(latitude: appConfig.manualLatitude, longitude: appConfig.manualLongitude)
+            if let tzId = appConfig.manualTimeZone, let tz = TimeZone(identifier: tzId) {
+                timeZone = tz
+            } else {
+                timeZone = TimeZone.current
+            }
+            
+            // Sync LocationManager state if needed (optional, purely for UI consistency if UI reads LocationManager)
+            if !locationManager.isManual {
+                locationManager.setManualLocation(latitude: loc.latitude, longitude: loc.longitude, name: appConfig.manualLocationName)
+            }
+        } else {
+            if locationManager.isManual {
+                locationManager.startLocation() // Resume GPS if we were manual
+            }
+            loc = locationManager.location ?? defaultLocation
+            timeZone = TimeZone.current
+        }
         
         // Use astronomical engine for real sunrise/sunset calculations
         self.vedicTime = engine.calculateVedicTime(date: currentDate, location: loc, astronomicalEngine: astronomicalEngine, timeZone: timeZone)

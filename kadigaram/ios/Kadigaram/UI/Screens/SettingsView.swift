@@ -4,6 +4,7 @@ import KadigaramCore
 struct SettingsView: View {
     @ObservedObject var appConfig: AppConfig
     @Environment(\.dismiss) var dismiss
+    @State private var showLocationSearch = false
     
     var body: some View {
         NavigationStack {
@@ -20,20 +21,31 @@ struct SettingsView: View {
                     Toggle("Use Manual Location", isOn: $appConfig.isManualLocation)
                     
                     if appConfig.isManualLocation {
-                        HStack {
-                            Text("Lat:")
-                            TextField("Latitude", value: $appConfig.manualLatitude, format: .number)
-                                .keyboardType(.decimalPad)
-                        }
-                        HStack {
-                            Text("Long:")
-                            TextField("Longitude", value: $appConfig.manualLongitude, format: .number)
-                                .keyboardType(.decimalPad)
+                        Button {
+                            showLocationSearch = true
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Location")
+                                        .foregroundColor(.primary)
+                                    Text(appConfig.manualLocationName)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
                         }
                     } else {
-                         Text("Using GPS: \(String(format: "%.4f", appConfig.manualLatitude)), \(String(format: "%.4f", appConfig.manualLongitude))") // Placeholder display if we could access real location here
-                            .foregroundColor(.secondary)
-                            .font(.caption)
+                        VStack(alignment: .leading) {
+                            Text("Using GPS Location")
+                                .foregroundColor(.primary)
+                            Text("Coordinates will be updated automatically.")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 4)
                     }
                 }
                 
@@ -47,6 +59,16 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .sheet(isPresented: $showLocationSearch) {
+                LocationSearchView { result in
+                    appConfig.manualLatitude = result.latitude
+                    appConfig.manualLongitude = result.longitude
+                    appConfig.manualLocationName = result.name
+                    if let tz = result.timeZoneIdentifier {
+                        appConfig.manualTimeZone = tz
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Done") {
