@@ -57,6 +57,7 @@
 		BB0B20C52F15D45B00EEC814 /* Exceptions for "kadigaram" folder in "kadigaram" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"/Localized: Resources/Localizable.strings",
 				App/KadigaramApp.swift,
 				Info.plist,
 				UI/Components/DualDateHeader.swift,
