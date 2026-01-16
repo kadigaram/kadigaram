@@ -1,10 +1,41 @@
 /* Tamil Localizations */
 "dashboard_gregorian" = "ஆங்கில தேதி";
 "dashboard_vedic" = "பஞ்சாங்கம்";
-"year_krodhi" = "குரோதி வருடம்";
-"month_margazhi" = "மார்கழி";
-"month_pausha" = "தை";
-"tithi_ekadashi" = "ஏகாதசி";
-"nakshatra_visakam" = "விசாகம்";
 "label_tithi" = "திதி";
 "label_nakshatra" = "நட்சத்திரம்";
+
+/* Tamil Months */
+"month_chithirai" = "சித்திரை";
+"month_vaigasi" = "வைகாசி";
+"month_aani" = "ஆனி";
+"month_aadi" = "ஆடி";
+"month_aavani" = "ஆவணி";
+"month_purattasi" = "புரட்டாசி";
+"month_aippasi" = "ஐப்பசி";
+"month_karthigai" = "கார்த்திகை";
+"month_margazhi" = "மார்கழி";
+"month_thai" = "தை";
+"month_masi" = "மாசி";
+"month_panguni" = "பங்குனி";
+
+/* Tamil Tithis */
+"tithi_prathamai" = "பிரதமை";
+"tithi_thuthiyai" = "துதியை";
+"tithi_thirithiyai" = "திருதியை";
+"tithi_chathurthi" = "சதுர்த்தி";
+"tithi_panchami" = "பஞ்சமி";
+"tithi_shasti" = "ஷஷ்டி";
+"tithi_sapthami" = "சப்தமி";
+"tithi_ashtami" = "அஷ்டமி";
+"tithi_navami" = "நவமி";
+"tithi_dhasami" = "தசமி";
+"tithi_ekadhasi" = "ஏகாதசி";
+"tithi_dhuvalhasi" = "துவாதசி";
+"tithi_thirayodhasi" = "திரயோதசி";
+"tithi_chathurdhasi" = "சதுர்த்தசி";
+"tithi_pournami" = "பௌர்ணமி";
+"tithi_amavasai" = "அமாவாசை";
+
+/* Year names - Just a few common ones for now */
+"year_subhanu" = "சுபானு";
+"year_krodhi" = "குரோதி";

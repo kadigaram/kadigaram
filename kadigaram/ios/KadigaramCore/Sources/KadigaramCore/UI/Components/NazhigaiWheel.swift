@@ -7,10 +7,25 @@ public struct NazhigaiWheel: View {
         self.vedicTime = vedicTime
     }
     
-    // Gradient definitions matching the "Premium Gold" look
-    private let goldGradient = LinearGradient(colors: [Color(red: 0.9, green: 0.8, blue: 0.5), Color(red: 0.7, green: 0.6, blue: 0.3)], startPoint: .top, endPoint: .bottom)
     
-    private let rahuKalamColor = Color.red
+    // Enhanced gold gradient with more depth for 3D effect
+    private let goldGradient = LinearGradient(
+        colors: [
+            Color(red: 1.0, green: 0.85, blue: 0.55),  // Highlight
+            Color(red: 0.9, green: 0.8, blue: 0.5),     // Mid-tone
+            Color(red: 0.7, green: 0.6, blue: 0.3)      // Shadow
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Theme-adaptive Yamagandam color (grey instead of red)
+    private var yamaGandamColor: Color {
+        colorScheme == .dark ? Color(white: 0.6) : Color(white: 0.4)
+    }
+    
     private let subhaColor = Color.green
     
     public var body: some View {
@@ -20,11 +35,26 @@ public struct NazhigaiWheel: View {
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
             ZStack {
-                // 1. Outer Gold Ring
-                Circle()
-                    .strokeBorder(goldGradient, lineWidth: size * 0.035) // Responsive line width
-                    .shadow(color: .black.opacity(0.5), radius: size * 0.03, x: 0, y: size * 0.015)
-                    .frame(width: size, height: size)
+                // 1. Outer Gold Ring with 3D embossed effect
+                ZStack {
+                    // Base ring with outer shadow
+                    Circle()
+                        .strokeBorder(goldGradient, lineWidth: size * 0.035)
+                        .shadow(color: .black.opacity(0.5), radius: size * 0.03, x: 0, y: size * 0.015)
+                    
+                    // Inner shadow overlay for embossed effect
+                    Circle()
+                        .strokeBorder(
+                            LinearGradient(
+                                colors: [Color.black.opacity(0.3), Color.clear, Color.white.opacity(0.2)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: size * 0.035
+                        )
+                        .blendMode(.overlay)
+                }
+                .frame(width: size, height: size)
                 
                 // 2. Tick Marks
                 ForEach(0..<60) { i in
@@ -36,11 +66,22 @@ public struct NazhigaiWheel: View {
                         .rotationEffect(.degrees(Double(i) * 6))
                 }
                 
-                // 3. Sectors (Rahu Kalam, etc - simplified placeholders)
-                // Red sector
+                // 2.5. 24-Hour Time Labels (starting from sunrise)
+                ForEach(0..<12) { hourIndex in
+                    let hoursFromSunrise = hourIndex * 2 // Every 2 hours
+                    if let timeLabel = formattedTimeLabel(hoursAfterSunrise: hoursFromSunrise) {
+                        Text(timeLabel)
+                            .font(.system(size: size * 0.035, weight: .medium, design: .rounded))
+                            .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.6))
+                            .offset(y: -radius * 1.08) // Position outside the dial
+                            .rotationEffect(.degrees(Double(hoursFromSunrise) * 15)) // 360/24 = 15 degrees per hour
+                    }
+                }
+                
+                // 3. Sectors (Yamagandam - grey, theme-adaptive)
                 Circle()
                     .trim(from: 0.0, to: 0.15)
-                    .stroke(rahuKalamColor, lineWidth: size * 0.05)
+                    .stroke(yamaGandamColor, lineWidth: size * 0.05)
                     .rotationEffect(.degrees(-90))
                     .padding(size * 0.08)
                     .frame(width: size, height: size)
@@ -93,6 +134,18 @@ public struct NazhigaiWheel: View {
         .aspectRatio(1, contentMode: .fit)
         .padding()
         .drawingGroup() // Optimize rendering for animations
+    }
+    
+    // Helper function to format time labels based on hours after sunrise
+    private func formattedTimeLabel(hoursAfterSunrise: Int) -> String? {
+        let calendar = Calendar.current
+        guard let timeAtLabel = calendar.date(byAdding: .hour, value: hoursAfterSunrise, to: vedicTime.sunrise) else {
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: timeAtLabel)
     }
 }
 

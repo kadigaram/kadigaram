@@ -7,9 +7,16 @@ struct DashboardView: View {
     @StateObject private var appConfig = AppConfig()
     @State private var showSettings = false
     
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Theme-adaptive background for better contrast with golden dial
+    private var backgroundColor: Color {
+        colorScheme == .dark ? Color(white: 0.08) : Color(white: 0.95)
+    }
+    
     var body: some View {
         ZStack {
-            Color(UIColor.systemBackground).ignoresSafeArea()
+            backgroundColor.ignoresSafeArea()
             
             VStack {
                 // Header

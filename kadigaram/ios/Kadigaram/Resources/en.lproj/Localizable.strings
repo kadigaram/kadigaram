@@ -111,6 +111,22 @@
 "tithi_purnima" = "Purnima";
 "tithi_amavasya" = "Amavasya";
 
+/* Tamil Tithi Names */
+"tithi_prathamai" = "Prathamai";
+"tithi_thuthiyai" = "Thuthiyai";
+"tithi_thirithiyai" = "Thirithiyai";
+"tithi_chathurthi" = "Chathurthi";
+"tithi_shasti" = "Shasti";
+"tithi_sapthami" = "Sapthami";
+"tithi_dhasami" = "Dhasami";
+"tithi_ekadhasi" = "Ekadhasi";
+"tithi_dhuvalhasi" = "Dhuvalhasi";
+"tithi_thirayodhasi" = "Thirayodhasi";
+"tithi_chathurdhasi" = "Chathurdhasi";
+"tithi_pournami" = "Pournami";
+"tithi_amavasai" = "Amavasai";
+
+
 /* Nakshatras */
 "nakshatra_ashwini" = "Ashwini";
 "nakshatra_bharani" = "Bharani";
