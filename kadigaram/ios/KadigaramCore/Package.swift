@@ -18,6 +18,8 @@ let package = Package(
     dependencies: [
         // Solar - Sunrise/sunset calculations (Naval Observatory algorithm)
         .package(url: "https://github.com/ceeK/Solar.git", from: "3.0.0"),
+        // SixPartsLib - Vedic and Tamil calendar calculations (local package)
+        .package(path: "../SixPartsLib"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -26,6 +28,7 @@ let package = Package(
             name: "KadigaramCore",
             dependencies: [
                 .product(name: "Solar", package: "Solar"),
+                .product(name: "SixPartsLib", package: "SixPartsLib"),
             ]
         ),
         .testTarget(

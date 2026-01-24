@@ -1,4 +1,6 @@
 import Foundation
+import CoreLocation
+import SixPartsLib  // Import for CalendarSystem enum
 
 public enum AppLanguage: String, CaseIterable, Codable {
     case english = "en"

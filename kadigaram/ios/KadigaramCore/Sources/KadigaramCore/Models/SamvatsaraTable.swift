@@ -84,18 +84,23 @@ public struct SamvatsaraTable {
     /// - Parameter year: Gregorian year
     /// - Returns: Index in cycle (1-60)
     public static func indexInCycle(for year: Int) -> Int {
-        // 1987 = Krodhi = 38th year in the cycle
-        let offset = year - baseYear + 38 // Adjust for 1987 being index 38
+        // Reference: 1988 is year 1 of the cycle (Prabhava)
+        //  Therefore: 2026 is year 39 (Viswavasu) 
+        // Calculation: (2026 - 1988) + 1 = 38 + 1 = 39 ✓
+        
+        let cycleStartYear = 1988  // Year 1 (Prabhava) of current 60-year cycle
+        let offset = year - cycleStartYear + 1  // +1 to make it 1-indexed
         let modulo = offset % 60
-        // Adjust for negative years
-        let adjustedModulo = modulo < 0 ? modulo + 60 : modulo
-        // Ensure 1-60 range (not 0-59)
-        return adjustedModulo == 0 ? 60 : adjustedModulo
+        
+        // Adjust for negative years (before 1988)
+        let adjustedModulo = modulo <= 0 ? modulo + 60 : modulo
+        
+        return adjustedModulo
     }
     
     /// Base year (1987 = Krodhi, index 38 in traditional ordering)
-    /// For this implementation, we treat 1987 as index 1 for simplicity
+    /// For this implementation, we treat 1988 as index 1 (Prabhava)
     public static var referenceYear: Int {
-        return baseYear
+        return 1988
     }
 }

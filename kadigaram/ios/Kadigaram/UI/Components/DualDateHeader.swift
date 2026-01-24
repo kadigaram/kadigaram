@@ -1,9 +1,11 @@
 import SwiftUI
 import KadigaramCore
+import SixPartsLib  // Import for TamilDate
 
 struct DualDateHeader: View {
     let gregorianDate: Date
     let vedicDate: VedicDate
+    let tamilDate: TamilDate?  // Optional Tamil date
     @ObservedObject var bhashaEngine = BhashaEngine() // Should ideally be EnvironmentObject or passed in
     
     // Formatting Gregorian Date
@@ -21,17 +23,24 @@ struct DualDateHeader: View {
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
             
-            // Bottom Line: Vedic (Using localized keys checking BhashaEngine)
-            // We translate the keys provided by vedicDate
+            // Bottom Line: Combined Vedic + Tamil Date
             HStack(spacing: 8) {
                 // Moon Phase Icon
                 MoonPhaseView(paksha: vedicDate.paksha, illumination: vedicDate.pakshamIllumination)
                     .foregroundStyle(.secondary)
                 
-                Text("\(bhashaEngine.localizedString(vedicDate.samvatsara)) • \(bhashaEngine.localizedString(vedicDate.maasa)) \(vedicDate.day) • \(bhashaEngine.localizedString(vedicDate.tithi))")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                // Use Tamil date if available, otherwise fall back to Vedic month/day
+                if let tamil = tamilDate {
+                    Text("\(bhashaEngine.localizedString(vedicDate.samvatsara)) • \(bhashaEngine.localizedString(tamil.monthName)) \(tamil.dayNumber) • \(bhashaEngine.localizedString(vedicDate.tithi))")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                } else {
+                    Text("\(bhashaEngine.localizedString(vedicDate.samvatsara)) • \(bhashaEngine.localizedString(vedicDate.maasa)) \(vedicDate.day) • \(bhashaEngine.localizedString(vedicDate.tithi))")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
             }
         }
         .padding()

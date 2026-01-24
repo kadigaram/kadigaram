@@ -1,4 +1,5 @@
 import SwiftUI
+import SixPartsLib  // Import for Paksha enum
 
 
 public struct MoonPhaseView: View {
