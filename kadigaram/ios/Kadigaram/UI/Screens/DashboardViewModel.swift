@@ -2,11 +2,13 @@ import SwiftUI
 import Combine
 import CoreLocation
 import KadigaramCore
+import SixPartsLib  // Import for TamilDate
 
 @MainActor
 class DashboardViewModel: ObservableObject {
     @Published var vedicTime: VedicTime
     @Published var vedicDate: VedicDate
+    @Published var tamilDate: TamilDate?  // Tamil calendar date
     @Published var currentDate: Date = Date()
     
     private let engine: VedicEngineProvider
@@ -70,6 +72,9 @@ class DashboardViewModel: ObservableObject {
         
         // Use astronomical engine for real sunrise/sunset calculations
         self.vedicTime = engine.calculateVedicTime(date: currentDate, location: loc, astronomicalEngine: astronomicalEngine, timeZone: timeZone)
+        
+        // Calculate Tamil date using SixPartsLib
+        self.tamilDate = SixPartsLib.calculateTamilDate(for: currentDate, location: loc, timeZone: timeZone)
         
         Task {
             self.vedicDate = await engine.calculateVedicDate(date: currentDate, location: loc, calendarSystem: appConfig.calendarSystem)

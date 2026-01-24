@@ -1,5 +1,7 @@
 import Foundation
 import CoreLocation
+import Solar
+import SixPartsLib  // Import for VedicDate, CalendarSystem, Paksha, AstronomicalCalculator
 
 public protocol VedicEngineProvider {
     func calculateVedicTime(date: Date, location: CLLocationCoordinate2D, astronomicalEngine: AstronomicalEngineProvider, timeZone: TimeZone) -> VedicTime

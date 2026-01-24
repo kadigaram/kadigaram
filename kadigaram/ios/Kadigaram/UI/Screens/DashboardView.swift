@@ -20,7 +20,7 @@ struct DashboardView: View {
             
             VStack {
                 // Header
-                DualDateHeader(gregorianDate: viewModel.currentDate, vedicDate: viewModel.vedicDate, bhashaEngine: bhashaEngine)
+                DualDateHeader(gregorianDate: viewModel.currentDate, vedicDate: viewModel.vedicDate, tamilDate: viewModel.tamilDate, bhashaEngine: bhashaEngine)
                     .padding(.top)
                 
                 Spacer()
