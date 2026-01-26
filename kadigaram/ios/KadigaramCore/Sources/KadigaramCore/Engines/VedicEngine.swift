@@ -13,53 +13,9 @@ public class VedicEngine: VedicEngineProvider {
     
     
     public func calculateVedicTime(date: Date, location: CLLocationCoordinate2D, astronomicalEngine: AstronomicalEngineProvider, timeZone: TimeZone) -> VedicTime {
-        // Calculate real sunrise and sunset using astronomical engine
-        let sunrise = astronomicalEngine.sunrise(for: date, at: location, timeZone: timeZone) ?? defaultSunrise(for: date)
-        let sunset = astronomicalEngine.sunset(for: date, at: location, timeZone: timeZone) ?? defaultSunset(for: date)
-        
-        // Nazhigai Calculation
-        // 1 Nazhigai = 24 Minutes
-        // 1 Day (Vedic) = 60 Nazhigai = 24 hours
-        
-        // Vedic day starts at sunrise, so we need to find the most recent sunrise
-        var referenceSunrise = sunrise
-        let elapsed = date.timeIntervalSince(sunrise)
-        
-        // If before today's sunrise (nighttime of previous day), use yesterday's sunrise
-        if elapsed < 0 {
-            // Get yesterday's date
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
-            referenceSunrise = astronomicalEngine.sunrise(for: yesterday, at: location, timeZone: timeZone) ?? defaultSunrise(for: yesterday)
-        }
-        
-        // Calculate elapsed time since the reference sunrise
-        let effectiveElapsed = date.timeIntervalSince(referenceSunrise)
-        
-        let totalMinutes = effectiveElapsed / 60.0
-        let totalNazhigai = totalMinutes / 24.0 // Floating point Nazhigai
-        
-        let nazhigai = Int(totalNazhigai)
-        let fractionalNazhigai = totalNazhigai - Double(nazhigai)
-        let vinazhigai = Int(fractionalNazhigai * 60)
-        
-        // Check if it's daytime
-        let isDaytime = date >= sunrise && date < sunset
-        
-        // Percent for wheel (0-1.0 over 60 Nazhigai cycle = 24 hours)
-        let percent = (effectiveElapsed.truncatingRemainder(dividingBy: 86400)) / 86400.0
-        
-        // Calculate angle for position indicator (0-360 degrees)
-        let progressIndicatorAngle = percent * 360.0
-        
-        return VedicTime(
-            nazhigai: nazhigai % 60,
-            vinazhigai: vinazhigai,
-            percentElapsed: percent,
-            progressIndicatorAngle: progressIndicatorAngle,
-            sunrise: sunrise,
-            sunset: sunset,
-            isDaytime: isDaytime
-        )
+        // Delegate calculation to SixPartsLib as requested
+        // Note: SixPartsLib uses its own internal Solar calculation logic which matches the previous implementation
+        return SixPartsLib.calculateVedicTime(for: date, location: location, timeZone: timeZone)
     }
     
     // MARK: - Fallback Methods

@@ -15,6 +15,14 @@
 		BB0B20CE2F15D63200EEC814 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */; };
 		BB0B20DD2F15D63300EEC814 /* KadigaramWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0B20F12F15DC7100EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20F02F15DC7100EEC814 /* KadigaramCore */; };
+		BB0B22C02F25526600EEC814 /* ClockDialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BB2F25526600EEC814 /* ClockDialDesign.swift */; };
+		BB0B22C12F25526600EEC814 /* ClockDialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BC2F25526600EEC814 /* ClockDialShape.swift */; };
+		BB0B22C22F25526600EEC814 /* AdaptiveClockDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BA2F25526600EEC814 /* AdaptiveClockDialView.swift */; };
+		BB0B22C32F25526600EEC814 /* ClockDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BD2F25526600EEC814 /* ClockDialView.swift */; };
+		BB0B22C42F25526600EEC814 /* ClockDialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BE2F25526600EEC814 /* ClockDialViewModel.swift */; };
+		BB0B22C52F25526600EEC814 /* ClockRingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BF2F25526600EEC814 /* ClockRingShape.swift */; };
+		BB0B22D42F26B11D00EEC814 /* SudarshanaChakra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */; };
+		BB0B22D62F26C56800EEC814 /* ClockDialBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +59,15 @@
 		BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KadigaramWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0B20CB2F15D63200EEC814 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BB0B22BA2F25526600EEC814 /* AdaptiveClockDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdaptiveClockDialView.swift; path = Kadigaram/UI/Components/AdaptiveClockDialView.swift; sourceTree = "<group>"; };
+		BB0B22BB2F25526600EEC814 /* ClockDialDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialDesign.swift; path = Kadigaram/UI/Components/ClockDialDesign.swift; sourceTree = "<group>"; };
+		BB0B22BC2F25526600EEC814 /* ClockDialShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialShape.swift; path = Kadigaram/UI/Components/ClockDialShape.swift; sourceTree = "<group>"; };
+		BB0B22BD2F25526600EEC814 /* ClockDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialView.swift; path = Kadigaram/UI/Components/ClockDialView.swift; sourceTree = "<group>"; };
+		BB0B22BE2F25526600EEC814 /* ClockDialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialViewModel.swift; path = Kadigaram/UI/Components/ClockDialViewModel.swift; sourceTree = "<group>"; };
+		BB0B22BF2F25526600EEC814 /* ClockRingShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockRingShape.swift; path = Kadigaram/UI/Components/ClockRingShape.swift; sourceTree = "<group>"; };
+		BB0B22D22F257A9000EEC814 /* KadigaramWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KadigaramWidgetExtension.entitlements; sourceTree = "<group>"; };
+		BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SudarshanaChakra.swift; path = Kadigaram/UI/Components/SudarshanaChakra.swift; sourceTree = "<group>"; };
+		BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialBackground.swift; path = Kadigaram/UI/Components/ClockDialBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -158,6 +175,15 @@
 		BB0B20852F15CE7400EEC814 = {
 			isa = PBXGroup;
 			children = (
+				BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */,
+				BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */,
+				BB0B22D22F257A9000EEC814 /* KadigaramWidgetExtension.entitlements */,
+				BB0B22BA2F25526600EEC814 /* AdaptiveClockDialView.swift */,
+				BB0B22BB2F25526600EEC814 /* ClockDialDesign.swift */,
+				BB0B22BC2F25526600EEC814 /* ClockDialShape.swift */,
+				BB0B22BD2F25526600EEC814 /* ClockDialView.swift */,
+				BB0B22BE2F25526600EEC814 /* ClockDialViewModel.swift */,
+				BB0B22BF2F25526600EEC814 /* ClockRingShape.swift */,
 				BB0B20F82F17391E00EEC814 /* Fonts */,
 				BB0B20BF2F15D34700EEC814 /* Kadigaram */,
 				BB0B20AF2F15D17000EEC814 /* KadigaramCore */,
@@ -381,7 +407,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB0B22D42F26B11D00EEC814 /* SudarshanaChakra.swift in Sources */,
+				BB0B22D62F26C56800EEC814 /* ClockDialBackground.swift in Sources */,
 				BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */,
+				BB0B22C02F25526600EEC814 /* ClockDialDesign.swift in Sources */,
+				BB0B22C12F25526600EEC814 /* ClockDialShape.swift in Sources */,
+				BB0B22C22F25526600EEC814 /* AdaptiveClockDialView.swift in Sources */,
+				BB0B22C32F25526600EEC814 /* ClockDialView.swift in Sources */,
+				BB0B22C42F25526600EEC814 /* ClockDialViewModel.swift in Sources */,
+				BB0B22C52F25526600EEC814 /* ClockRingShape.swift in Sources */,
 				BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */,
 				BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */,
 			);
@@ -532,6 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = kadigaram/kadigaram.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;
@@ -567,6 +602,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = kadigaram/kadigaram.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;
@@ -601,6 +637,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = KadigaramWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;
@@ -631,6 +668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = KadigaramWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;

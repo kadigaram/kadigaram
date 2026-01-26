@@ -1,4 +1,5 @@
 import Foundation
+import Solar
 
 /// Represents the calculated point in time (Nazhigai, Vinazhigai) relative to Sunrise.
 public struct VedicTime: Equatable, Sendable {

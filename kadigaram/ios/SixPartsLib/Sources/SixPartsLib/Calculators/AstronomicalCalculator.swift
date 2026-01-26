@@ -84,39 +84,19 @@ public class AstronomicalCalculator {
     public func calculateLahiriAyanamsa(date: Date) -> Double {
         let jd = julianDay(from: date)
         
-        // Use table-based values for known epochs, interpolate between them
-        // Calibrated to match EST reference: Thai Sankranti = Jan 14, 2026 04:43 AM EST
-        let referencePoints: [(jd: Double, ayanamsa: Double)] = [
-            (2451545.0, 23.85),  // Jan 1, 2000 = 23.85°
-            (2460676.0, 24.10),  // Jan 1, 2025
-            (2461041.0, 24.14),  // Jan 1, 2026 (calibrated for EST reference)
-        ]
+        // Standard Lahiri Ayanamsa Formula (simplified linear model)
+        // Reference J2000 (JD 2451545.0) = 23.854722 degrees (23° 51' 17")
+        // Rate = 50.29 arcseconds per year = 0.013969 degrees per year
+        // T = Julian centuries from J2000
         
-        // Find bracketing points
-        if jd < referencePoints[0].jd {
-            // Before 2000: extrapolate backwards
-            let t = (jd - referencePoints[0].jd) / 36525.0
-            return referencePoints[0].ayanamsa + 1.397 * t
-        } else if jd >= referencePoints.last!.jd {
-            // After last point: extrapolate forward
-            let t = (jd - referencePoints.last!.jd) / 36525.0
-            return referencePoints.last!.ayanamsa + 1.397 * t
-        } else {
-            // Interpolate between points
-            for i in 0..<(referencePoints.count - 1) {
-                if jd >= referencePoints[i].jd && jd < referencePoints[i + 1].jd {
-                    let jd0 = referencePoints[i].jd
-                    let jd1 = referencePoints[i + 1].jd
-                    let a0 = referencePoints[i].ayanamsa
-                    let a1 = referencePoints[i + 1].ayanamsa
-                    
-                    // Linear interpolation
-                    let fraction = (jd - jd0) / (jd1 - jd0)
-                    return a0 + fraction * (a1 - a0)
-                }
-            }
-            return referencePoints.last!.ayanamsa
-        }
+        let t = (jd - 2451545.0) / 36525.0
+        
+        // Ayanamsa = 23.854722 + 1.396971 * T
+        // 1.396971 comes from 50.29 arcsec/yr * 100 years / 3600
+        
+        let ayanamsa = 23.854722 + 1.396971 * t
+        
+        return ayanamsa
     }
     
     /// Calculate Sun's sidereal longitude (tropical + Ayanamsa offset)
@@ -171,35 +151,9 @@ public class AstronomicalCalculator {
     // MARK: - Helper Methods
     
     /// Convert Date to Julian Day
+    /// Uses absolute time (timeIntervalSince1970) to avoid TimeZone ambiguity
+    /// JD 2440587.5 = Jan 1, 1970 00:00 UTC
     private func julianDay(from date: Date) -> Double {
-        let calendar = Calendar(identifier: .gregorian)
-        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        
-        let year = components.year!
-        let month = components.month!
-        var day = Double(components.day!)
-        day += Double(components.hour ?? 0) / 24.0
-        day += Double(components.minute ?? 0) / 1440.0
-        day += Double(components.second ?? 0) / 86400.0
-        
-        var y = year
-        var m = month
-        if m <= 2 {
-            y -= 1
-            m += 12
-        }
-        
-        let a = Int(Double(y) / 100.0)
-        let b = 2 - a + Int(Double(a) / 4.0)
-        
-        // Break down Julian Day calculation to avoid compiler timeout
-        let term1 = Double(Int(365.25 * Double(y + 4716)))
-        let term2 = Double(Int(30.6001 * Double(m + 1)))
-        let term3 = Double(Int(day))
-        let term4 = Double(b)
-        
-        let jd = term1 + term2 + term3 + term4 - 1524.5
-        
-        return jd
+        return date.timeIntervalSince1970 / 86400.0 + 2440587.5
     }
 }

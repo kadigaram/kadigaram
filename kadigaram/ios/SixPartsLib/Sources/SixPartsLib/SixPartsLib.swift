@@ -47,4 +47,97 @@ public struct SixPartsLib {
         // TODO: Implement in Phase 5 (US3)
         fatalError("Not yet implemented")
     }
+    
+    /// Calculate current Vedic Time (Nazhigai/Vinazhigai)
+    ///
+    /// - Parameters:
+    ///   - date: Current date
+    ///   - location: Geographic coordinates
+    ///   - timeZone: TimeZone for calculation
+    /// - Returns: VedicTime object with calculated Nazhigai
+    public static func calculateVedicTime(
+        for date: Date,
+        location: CLLocationCoordinate2D,
+        timeZone: TimeZone
+    ) -> VedicTime {
+        // Use Solar library for calculation
+        // Note: Solar library handles sunrise/sunset based on location/date
+        
+        let solar = Solar(for: date, coordinate: location)
+        
+        // Default to 6 AM/6 PM if calculation fails
+        let defaultSunrise = Calendar.current.date(bySettingHour: 6, minute: 0, second: 0, of: date) ?? date
+        let defaultSunset = Calendar.current.date(bySettingHour: 18, minute: 0, second: 0, of: date) ?? date
+        
+        let sunrise = solar?.sunrise ?? defaultSunrise
+        let sunset = solar?.sunset ?? defaultSunset
+        
+        // Vedic day starts at sunrise, so we need to find the most recent sunrise
+        var referenceSunrise = sunrise
+        let elapsed = date.timeIntervalSince(sunrise)
+        
+        // If before today's sunrise (nighttime of previous day relative to Gregorian date?), 
+        // actually if 'date' is before 'sunrise', it means we are in the "previous Vedic day".
+        // HOWEVER, Solar(for: date) gives sunrise for THAT Gregorian date.
+        // If it's 2 AM, Solar gives 6 AM of that day. 2 AM < 6 AM.
+        // So we need YESTERDAY'S sunrise.
+        
+        if elapsed < 0 {
+            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? date
+            let yesterSolar = Solar(for: yesterday, coordinate: location)
+            referenceSunrise = yesterSolar?.sunrise ?? Calendar.current.date(byAdding: .day, value: -1, to: defaultSunrise) ?? date
+        }
+        
+        // Calculate elapsed time since the reference sunrise
+        let effectiveElapsed = date.timeIntervalSince(referenceSunrise)
+        
+        let totalMinutes = effectiveElapsed / 60.0
+        let totalNazhigai = totalMinutes / 24.0 // 1 Nazhigai = 24 mins
+        
+        let nazhigai = Int(totalNazhigai)
+        let fractionalNazhigai = totalNazhigai - Double(nazhigai)
+        let vinazhigai = Int(fractionalNazhigai * 60)
+        
+        // Check if it's daytime (using today's sunrise/sunset)
+        // If we are before sunrise (using yesterday's reference), it is technically "daytime" of yesterday? 
+        // No, typically isDaytime checks strictly against sun position.
+        // But for Vedic Time context, it might imply "Sakalya" vs "Ratri".
+        // Let's stick to simple "is sun up" check for now using current day's events.
+        // Solar library has isDaytime property on the moment? No.
+        
+        let isDaytime = date >= sunrise && date < sunset
+        
+        // Percent for wheel (0-1.0 over 60 Nazhigai cycle = 24 hours)
+        // 60 Nazhigai = 1440 minutes = 86400 seconds
+        let percent = (effectiveElapsed.truncatingRemainder(dividingBy: 86400)) / 86400.0
+        
+        // Calculate angle for position indicator (0-360 degrees)
+        let progressIndicatorAngle = percent * 360.0
+        
+        return VedicTime(
+            nazhigai: nazhigai % 60,
+            vinazhigai: vinazhigai,
+            percentElapsed: percent,
+            progressIndicatorAngle: progressIndicatorAngle,
+            sunrise: referenceSunrise, // Return the reference sunrise used for calculation
+            sunset: sunset,
+            isDaytime: isDaytime
+        )
+    }
+    
+    /// Calculate Vara (Day of the Week) in specified language
+    ///
+    /// - Parameters:
+    ///   - date: The date to check
+    ///   - language: The language for the name
+    ///   - timeZone: TimeZone for calculation (default current)
+    /// - Returns: Localized string
+    public static func calculateVara(
+        for date: Date,
+        language: VaraLanguage,
+        timeZone: TimeZone = .current
+    ) -> String {
+        return Vara.getName(for: date, language: language, timeZone: timeZone)
+    }
 }
+import Solar // Ensure Solar is imported at file level if not already (it was imported in file view, confirming)
