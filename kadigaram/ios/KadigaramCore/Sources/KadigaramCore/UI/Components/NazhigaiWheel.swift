@@ -1,4 +1,5 @@
 import SwiftUI
+import SixPartsLib
 
 public struct NazhigaiWheel: View {
     public let vedicTime: VedicTime
@@ -21,12 +22,30 @@ public struct NazhigaiWheel: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    // Theme-adaptive Yamagandam color (grey instead of red)
-    private var yamaGandamColor: Color {
-        colorScheme == .dark ? Color(white: 0.6) : Color(white: 0.4)
+    // Time label color - light text since we have dark background
+    private var timeLabelColor: Color {
+        // Use light grey for both modes since background is now dark (#404040)
+        Color(red: 176/255, green: 176/255, blue: 176/255)
     }
     
-    private let subhaColor = Color.green
+    @EnvironmentObject var appConfig: AppConfig
+    
+    private var localizedNazhigaiLabel: String {
+        switch appConfig.language {
+        case .english:
+            return "Nazhigai : Vinazhigai"
+        case .tamil:
+            return "நாழிகைNāḻikai : விநாழிகைVināḻikai"
+        case .sanskrit:
+            return "घटिकाGhaṭikā : विघटिकाVighaṭikā"
+        case .telugu:
+            return "గడియGadiya : విగడియVigadiya"
+        case .kannada:
+            return "ಘಳಿಗೆGhalige : ವಿಘಳಿಗೆVighalige"
+        case .malayalam:
+            return "നാഴികNāḻika : വിനാഴികVināḻika"
+        }
+    }
     
     public var body: some View {
         GeometryReader { geometry in
@@ -66,44 +85,42 @@ public struct NazhigaiWheel: View {
                         .rotationEffect(.degrees(Double(i) * 6))
                 }
                 
-                // 2.5. 24-Hour Time Labels (starting from sunrise)
-                ForEach(0..<12) { hourIndex in
-                    let hoursFromSunrise = hourIndex * 2 // Every 2 hours
-                    if let timeLabel = formattedTimeLabel(hoursAfterSunrise: hoursFromSunrise) {
-                        Text(timeLabel)
+                // 2.5. Standard 24-Hour Time Labels
+                ForEach(0..<12) { i in
+                    let hour = i * 2 // 0, 2, 4, ... 22
+                    
+                    // Calculate angle for this standard hour relative to Sunrise
+                    // 1. Get Date for today at hour:00
+                    let calendar = Calendar.current
+                    if let targetDate = calendar.date(bySettingHour: hour, minute: 0, second: 0, of: vedicTime.sunrise) {
+                        
+                        // 2. Calculate difference from Sunrise
+                        var diff = targetDate.timeIntervalSince(vedicTime.sunrise)
+                        
+                        // Adjust for 24-hour cycle wrap-around
+                        let daySeconds: Double = 86400
+                        let angleDegrees = (diff / daySeconds) * 360.0
+                        
+                        Text(String(format: "%02d:00", hour))
                             .font(.system(size: size * 0.035, weight: .medium, design: .rounded))
-                            .foregroundColor(colorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.6))
-                            .offset(y: -radius * 1.08) // Position outside the dial
-                            .rotationEffect(.degrees(Double(hoursFromSunrise) * 15)) // 360/24 = 15 degrees per hour
+                            .foregroundColor(timeLabelColor)
+                            .offset(y: -radius * 1.08)
+                            .rotationEffect(.degrees(angleDegrees))
                     }
                 }
                 
-                // 3. Sectors (Yamagandam - grey, theme-adaptive)
-                Circle()
-                    .trim(from: 0.0, to: 0.15)
-                    .stroke(yamaGandamColor, lineWidth: size * 0.05)
-                    .rotationEffect(.degrees(-90))
-                    .padding(size * 0.08)
-                    .frame(width: size, height: size)
+                // 3. Sectors removed temporarily
                 
-                // Green sector
-                Circle()
-                    .trim(from: 0.25, to: 0.5)
-                    .stroke(subhaColor, lineWidth: size * 0.05)
-                    .rotationEffect(.degrees(-90))
-                    .padding(size * 0.08)
-                    .frame(width: size, height: size)
-                
-                // 4. Position Indicator Sphere (New Feature)
+                // 4. Position Indicator Sphere
                 Circle()
                     .fill(
                         RadialGradient(gradient: Gradient(colors: [.white, Color(red: 0.9, green: 0.8, blue: 0.5)]), center: .topLeading, startRadius: size * 0.01, endRadius: size * 0.05)
                     )
                     .frame(width: size * 0.06, height: size * 0.06)
                     .shadow(color: .black.opacity(0.4), radius: 3, x: 0, y: 3)
-                    .offset(y: -radius * 0.98) // Place partially on the ring
+                    .offset(y: -radius * 0.98)
                     .rotationEffect(.degrees(vedicTime.progressIndicatorAngle))
-                    .animation(.linear(duration: 1.0), value: vedicTime.progressIndicatorAngle) // Smooth movement
+                    .animation(.linear(duration: 1.0), value: vedicTime.progressIndicatorAngle)
                 
                 // 5. Time Display (Center)
                 VStack(spacing: size * 0.015) {
@@ -115,9 +132,9 @@ public struct NazhigaiWheel: View {
                     Text("\(String(format: "%02d", vedicTime.nazhigai)) : \(String(format: "%02d", vedicTime.vinazhigai))")
                         .font(.system(size: size * 0.16, weight: .bold, design: .rounded))
                         .foregroundStyle(goldGradient)
-                        .contentTransition(.numericText(countsDown: false)) // Smooth number transition
+                        .contentTransition(.numericText(countsDown: false))
                     
-                    Text("Nazhigai : Vinazhigai") // Should be localized
+                    Text(localizedNazhigaiLabel)
                         .font(.system(size: size * 0.04))
                         .foregroundStyle(goldGradient.opacity(0.8))
                     
@@ -129,23 +146,11 @@ public struct NazhigaiWheel: View {
 
                 }
             }
-            .position(x: center.x, y: center.y) // Center the ZStack in GeometryReader
+            .position(x: center.x, y: center.y)
         }
         .aspectRatio(1, contentMode: .fit)
         .padding()
-        .drawingGroup() // Optimize rendering for animations
-    }
-    
-    // Helper function to format time labels based on hours after sunrise
-    private func formattedTimeLabel(hoursAfterSunrise: Int) -> String? {
-        let calendar = Calendar.current
-        guard let timeAtLabel = calendar.date(byAdding: .hour, value: hoursAfterSunrise, to: vedicTime.sunrise) else {
-            return nil
-        }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: timeAtLabel)
+        .drawingGroup()
     }
 }
 
@@ -153,5 +158,6 @@ public struct NazhigaiWheel: View {
     ZStack {
         Color.black.ignoresSafeArea()
         NazhigaiWheel(vedicTime: VedicTime(nazhigai: 14, vinazhigai: 21, percentElapsed: 0.25, progressIndicatorAngle: 90.0, sunrise: Date(), sunset: Date(), isDaytime: true))
+            .environmentObject(AppConfig())
     }
 }

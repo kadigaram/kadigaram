@@ -20,6 +20,10 @@ class DashboardViewModel: ObservableObject {
     // Default Chennai coordinates if location missing (Verification fallback)
     private let defaultLocation = CLLocationCoordinate2D(latitude: 13.0827, longitude: 80.2707)
     
+    // Widget Update Tracking
+    private var lastWidgetUpdateLocation: CLLocationCoordinate2D?
+    private var lastWidgetLocationName: String?
+    
     init(engine: VedicEngineProvider = VedicEngine(), locationManager: LocationManager = LocationManager(), appConfig: AppConfig = AppConfig(), astronomicalEngine: AstronomicalEngineProvider = SolarAstronomicalEngine()) {
         self.engine = engine
         self.locationManager = locationManager
@@ -36,8 +40,8 @@ class DashboardViewModel: ObservableObject {
     }
     
     func setupTimer() {
-        // 60 FPS Timer
-        timer = Timer.publish(every: 0.016, on: .main, in: .common)
+        // 1 FPS Timer (updated from 60FPS to save battery)
+        timer = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 self?.updateTime()
@@ -79,5 +83,35 @@ class DashboardViewModel: ObservableObject {
         Task {
             self.vedicDate = await engine.calculateVedicDate(date: currentDate, location: loc, calendarSystem: appConfig.calendarSystem)
         }
+        
+        // Update Widget Cache if needed
+        let currentLocationName = appConfig.isManualLocation ? appConfig.manualLocationName : locationManager.locationName
+        if shouldUpdateWidget(newLocation: loc, newName: currentLocationName) {
+            let result = LocationResult(
+                name: currentLocationName,
+                latitude: loc.latitude,
+                longitude: loc.longitude,
+                timeZoneIdentifier: timeZone.identifier
+            )
+            WidgetDataCache.shared.saveLocation(result)
+            lastWidgetUpdateLocation = loc
+            lastWidgetLocationName = currentLocationName
+        }
+    }
+    
+    private func shouldUpdateWidget(newLocation: CLLocationCoordinate2D, newName: String) -> Bool {
+        guard let lastLoc = lastWidgetUpdateLocation, let lastName = lastWidgetLocationName else {
+            return true // First update
+        }
+        
+        if newName != lastName { return true }
+        
+        // Check distance > 1000m roughly (0.01 degrees ~ 1km)
+        let latDiff = abs(newLocation.latitude - lastLoc.latitude)
+        let lonDiff = abs(newLocation.longitude - lastLoc.longitude)
+        
+        if latDiff > 0.01 || lonDiff > 0.01 { return true }
+        
+        return false
     }
 }

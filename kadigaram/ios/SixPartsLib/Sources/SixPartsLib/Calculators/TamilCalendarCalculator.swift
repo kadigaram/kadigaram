@@ -83,36 +83,40 @@ public class TamilCalendarCalculator {
     ///   - targetDegree: Rasi boundary (0, 30, 60, ..., 330)
     ///   - searchEnd: End of search window (typically current date)
     /// - Returns: Sankranti timestamp, or nil if not found in 32-day window
-    public func findSankranti(targetDegree: Double, searchEnd: Date) -> Date? {
-        let searchStart = Calendar.current.date(byAdding: .day, value: -32, to: searchEnd)!
+/// - Returns: Sankranti timestamp (UTC)
+public func findSankranti(targetDegree: Double, searchEnd: Date) -> Date? {
+    // 1. Search Window: 32 days back is correct
+    let searchStart = Calendar.current.date(byAdding: .day, value: -32, to: searchEnd)!
+    
+    var low = searchStart.timeIntervalSince1970
+    var high = searchEnd.timeIntervalSince1970
+    
+    // 2. Optimization: Don't calculate dates inside loop, use TimeInterval (Double)
+    // Run until precision is 1 second (not 60, go deeper for safety)
+    while (high - low) > 1 { 
+        let mid = (low + high) / 2
+        let midDate = Date(timeIntervalSince1970: mid)
+        let sunPos = astronomicalCalculator.siderealSunLongitude(date: midDate)
         
-        var low = searchStart
-        var high = searchEnd
+        // Handle 360/0 wrap-around (e.g., finding Aries ingress)
+        // If target is 0 (Aries), and sun is 359.9, distance is -0.1 (Correct)
+        var diff = sunPos - targetDegree
         
-        // Binary search with 1-minute precision
-        while high.timeIntervalSince(low) > 60 {  // 1-minute precision
-            let mid = Date(timeIntervalSince1970: (low.timeIntervalSince1970 + high.timeIntervalSince1970) / 2)
-            let sunPos = astronomicalCalculator.siderealSunLongitude(date: mid)
-            
-            // Handle wraparound at 0°/360°
-            let distanceToDegree: Double
-            if targetDegree == 0 {
-                distanceToDegree = sunPos < 180 ? sunPos : sunPos - 360
-            } else {
-                distanceToDegree = sunPos - targetDegree
-            }
-            
-            if abs(distanceToDegree) < 0.1 {  // Within 0.1° = close enough
-                return mid
-            } else if distanceToDegree < 0 {
-                low = mid
-            } else {
-                high = mid
-            }
+        // If we are crossing 360 -> 0 (Pisces to Aries)
+        if diff > 180 { diff -= 360 }
+        if diff < -180 { diff += 360 }
+
+        if diff < 0 {
+            // Sun is behind target -> Move forward
+            low = mid
+        } else {
+            // Sun is past target -> Move backward
+            high = mid
         }
-        
-        return high  // Return best approximation
     }
+    
+    return Date(timeIntervalSince1970: high)
+}
     
     // MARK: - Sunset Rule
     
