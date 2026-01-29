@@ -95,7 +95,7 @@ public struct NazhigaiWheel: View {
                     if let targetDate = calendar.date(bySettingHour: hour, minute: 0, second: 0, of: vedicTime.sunrise) {
                         
                         // 2. Calculate difference from Sunrise
-                        var diff = targetDate.timeIntervalSince(vedicTime.sunrise)
+                        let diff = targetDate.timeIntervalSince(vedicTime.sunrise)
                         
                         // Adjust for 24-hour cycle wrap-around
                         let daySeconds: Double = 86400

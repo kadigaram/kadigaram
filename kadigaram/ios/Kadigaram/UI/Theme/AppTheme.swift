@@ -26,9 +26,12 @@ final class AppTheme: ObservableObject {
     
     /// Initialize with a theme configuration
     /// - Parameter configuration: The theme configuration to use
-    init(configuration: ThemeConfiguration = .default) {
-        self.configuration = configuration
-        self.currentColorScheme = configuration.colorScheme
+    /// Initialize with a theme configuration
+    /// - Parameter configuration: The theme configuration to use
+    init(configuration: ThemeConfiguration? = nil) {
+        let config = configuration ?? .default
+        self.configuration = config
+        self.currentColorScheme = config.colorScheme
     }
     
     // MARK: - Public Methods
@@ -116,6 +119,7 @@ final class AppTheme: ObservableObject {
 extension AppTheme {
     /// Create a default AppTheme instance
     /// - Returns: AppTheme with default configuration
+    @MainActor
     static func `default`() -> AppTheme {
         AppTheme(configuration: .default)
     }
