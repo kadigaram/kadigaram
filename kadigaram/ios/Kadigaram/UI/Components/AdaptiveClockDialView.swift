@@ -56,10 +56,9 @@ fileprivate struct SafeAreaModifier: ViewModifier {
     .background(Color.gray.opacity(0.1))
 }
 
-#Preview("Adaptive Clock - Landscape") {
+#Preview("Adaptive Clock - Landscape", traits: .landscapeLeft) {
     AdaptiveClockDialView(
         viewModel: ClockDialViewModel.preview(hour: 10, minute: 10)
     )
-    .previewInterfaceOrientation(.landscapeLeft)
     .background(Color.gray.opacity(0.1))
 }

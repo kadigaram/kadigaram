@@ -35,9 +35,9 @@ final class ClockDialViewModel: ObservableObject {
     // MARK: - Initialization
     
     /// Initialize with current time and default design
-    init(currentTime: Date = Date(), design: ClockDialDesign = .default) {
+    init(currentTime: Date = Date(), design: ClockDialDesign? = nil) {
         self.currentTime = currentTime
-        self.design = design
+        self.design = design ?? .default
     }
     
     /// Current Vedic time data
@@ -123,7 +123,6 @@ final class ClockDialViewModel: ObservableObject {
         }
         
         var labels: [ClockLabel] = []
-        let calendar = Calendar.current
         
         // Generate ticks every 2 hours relative to Sunrise
         // We ideally want "nice" times like 06:00, 08:00... or just Sunrise + 2h?
@@ -207,6 +206,7 @@ final class ClockDialViewModel: ObservableObject {
 
 extension ClockDialViewModel {
     /// Create a preview instance with a fixed time
+    @MainActor
     static func preview(hour: Int = 10, minute: Int = 10) -> ClockDialViewModel {
         var components = DateComponents()
         components.hour = hour

@@ -7,6 +7,8 @@ struct DashboardView: View {
     @StateObject private var appConfig = AppConfig()
     @StateObject private var clockViewModel = ClockDialViewModel() // New clock VM
     @State private var showSettings = false
+    @State private var showAlarms = false
+    @Environment(\.scenePhase) private var scenePhase
     
     /// Theme object injected from app root
     @EnvironmentObject var theme: AppTheme
@@ -52,43 +54,56 @@ struct DashboardView: View {
                 Spacer()
                 
                 HStack {
-                    Button(action: { showSettings = true }) {
-                        Image(systemName: "gear")
+                    Menu {
+                        Button(action: { showSettings = true }) {
+                            Label("Settings", systemImage: "gear")
+                        }
+                        Button(action: { showAlarms = true }) {
+                            Label("Alarms", systemImage: "bell.fill")
+                        }
+                        LanguageToggle(bhashaEngine: bhashaEngine)
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
                             .font(.title2)
+                            .padding()
                     }
-                    .padding()
                     
                     Spacer()
-                    
-                    LanguageToggle(bhashaEngine: bhashaEngine)
-                        .padding()
                 }
             }
 
         }
-        .onChange(of: viewModel.vedicTime) { newTime in
+        .onChange(of: viewModel.vedicTime) { _, newTime in
             clockViewModel.updateVedicTime(newTime)
         }
-        .onChange(of: viewModel.currentDate) { newDate in
+        .onChange(of: viewModel.currentDate) { _, newDate in
             clockViewModel.updateCurrentTime(to: newDate)
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(appConfig: appConfig)
         }
-        .onChange(of: colorScheme) { newScheme in
+        .sheet(isPresented: $showAlarms) {
+            AlarmListView()
+        }
+        .onChange(of: colorScheme) { _, newScheme in
             theme.updateColorScheme(newScheme)
         }
-        .onChange(of: colorSchemeContrast) { _ in
+        .onChange(of: colorSchemeContrast) { _, _ in
             updateAccessibilitySettings()
         }
-        .onChange(of: reduceTransparency) { _ in
+        .onChange(of: reduceTransparency) { _, _ in
             updateAccessibilitySettings()
         }
-        .onChange(of: dynamicTypeSize) { _ in
+        .onChange(of: dynamicTypeSize) { _, _ in
             updateAccessibilitySettings()
         }
-        .onChange(of: reduceMotion) { _ in
+        .onChange(of: reduceMotion) { _, _ in
             updateAccessibilitySettings()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                NotificationService.shared.rescheduleFromPersistence()
+            }
         }
         .onAppear {
             theme.updateColorScheme(colorScheme)

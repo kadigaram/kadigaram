@@ -139,5 +139,36 @@ public struct SixPartsLib {
     ) -> String {
         return Vara.getName(for: date, language: language, timeZone: timeZone)
     }
+    
+    /// Calculate Gregorian Date for a given Vedic Time (Nazhigai/Vinazhigai) relative to the sunrise of a specific date.
+    ///
+    /// - Parameters:
+    ///   - nazhigai: Target Nazhigai (0-59)
+    ///   - vinazhigai: Target Vinazhigai (0-59)
+    ///   - date: The calendar date for which to find the sunrise (the "Vedic Day")
+    ///   - location: Geographic coordinates
+    ///   - timeZone: TimeZone (current)
+    /// - Returns: The exact Date when this Vedic Time occurs
+    public static func calculateDate(
+        nazhigai: Int,
+        vinazhigai: Int,
+        on date: Date,
+        location: CLLocationCoordinate2D,
+        timeZone: TimeZone = .current
+    ) -> Date? {
+        // 1. Get Sunrise for the reference date
+        let solar = Solar(for: date, coordinate: location)
+        
+        // Fail if we can't determine sunrise (e.g., polar regions or error)
+        guard let sunrise = solar?.sunrise else { return nil }
+        
+        // 2. Calculate offset in seconds
+        // 1 Nazhigai = 24 minutes = 1440 seconds
+        // 1 Vinazhigai = 24 seconds
+        let secondsOffset = Double(nazhigai) * 1440.0 + Double(vinazhigai) * 24.0
+        
+        // 3. Add to sunrise
+        return sunrise.addingTimeInterval(secondsOffset)
+    }
 }
 import Solar // Ensure Solar is imported at file level if not already (it was imported in file view, confirming)

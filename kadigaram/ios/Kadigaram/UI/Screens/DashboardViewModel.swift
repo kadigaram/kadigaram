@@ -24,19 +24,19 @@ class DashboardViewModel: ObservableObject {
     private var lastWidgetUpdateLocation: CLLocationCoordinate2D?
     private var lastWidgetLocationName: String?
     
-    init(engine: VedicEngineProvider = VedicEngine(), locationManager: LocationManager = LocationManager(), appConfig: AppConfig = AppConfig(), astronomicalEngine: AstronomicalEngineProvider = SolarAstronomicalEngine()) {
+    init(engine: VedicEngineProvider = VedicEngine(), locationManager: LocationManager? = nil, appConfig: AppConfig = AppConfig(), astronomicalEngine: AstronomicalEngineProvider = SolarAstronomicalEngine()) {
         self.engine = engine
-        self.locationManager = locationManager
+        self.locationManager = locationManager ?? LocationManager.shared
         self.appConfig = appConfig
         self.astronomicalEngine = astronomicalEngine
         
         // Initial Dummy Data
         self.vedicTime = VedicTime(nazhigai: 0, vinazhigai: 0, percentElapsed: 0, progressIndicatorAngle: 0.0, sunrise: Date(), sunset: Date(), isDaytime: true)
-        self.vedicDate = VedicDate(samvatsara: "year_krodhi", samvatsaraIndex: 38, maasa: "month_margazhi", paksha: .shukla, pakshamIllumination: 0.5, tithi: "tithi_ekadashi", tithiProgress: 0.0, tithiNumber: 11, nakshatra: "nakshatra_visakam", nakshatraProgress: 0.0, nakshatraNumber: 16, day: 1)
+        self.vedicDate = VedicDate(samvatsara: "year_krodhi", samvatsaraIndex: 38, maasa: "month_margazhi", paksha: .shukla, pakshamIllumination: 0.5, tithi: "tithi_ekadashi", tithiProgress: 0.0, tithiNumber: 11, nakshatra: "nakshatra_multan", nakshatraProgress: 0.0, nakshatraNumber: 16, day: 1)
         
         setupTimer()
-        locationManager.requestPermission()
-        locationManager.startLocation()
+        self.locationManager.requestPermission()
+        self.locationManager.startLocation()
     }
     
     func setupTimer() {

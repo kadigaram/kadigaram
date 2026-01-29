@@ -6,5 +6,15 @@
 	<array>
 		<string>group.com.kadigaram.app</string>
 	</array>
+	<!--
+	TODO: UNCOMMENT BEFORE APP RELEASE
+	Requires paid Apple Developer account ($99/year) to enable in Developer Portal:
+	1. Go to developer.apple.com/account → Identifiers
+	2. Enable "Alarms and Timers" capability for your App ID
+	3. Regenerate provisioning profile
+	
+	<key>com.apple.developer.alarm</key>
+	<true/>
+	-->
 </dict>
 </plist>

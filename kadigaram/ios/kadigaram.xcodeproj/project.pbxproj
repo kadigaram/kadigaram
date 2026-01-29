@@ -15,14 +15,6 @@
 		BB0B20CE2F15D63200EEC814 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB0B20CD2F15D63200EEC814 /* SwiftUI.framework */; };
 		BB0B20DD2F15D63300EEC814 /* KadigaramWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BB0B20CA2F15D63200EEC814 /* KadigaramWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB0B20F12F15DC7100EEC814 /* KadigaramCore in Frameworks */ = {isa = PBXBuildFile; productRef = BB0B20F02F15DC7100EEC814 /* KadigaramCore */; };
-		BB0B22C02F25526600EEC814 /* ClockDialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BB2F25526600EEC814 /* ClockDialDesign.swift */; };
-		BB0B22C12F25526600EEC814 /* ClockDialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BC2F25526600EEC814 /* ClockDialShape.swift */; };
-		BB0B22C22F25526600EEC814 /* AdaptiveClockDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BA2F25526600EEC814 /* AdaptiveClockDialView.swift */; };
-		BB0B22C32F25526600EEC814 /* ClockDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BD2F25526600EEC814 /* ClockDialView.swift */; };
-		BB0B22C42F25526600EEC814 /* ClockDialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BE2F25526600EEC814 /* ClockDialViewModel.swift */; };
-		BB0B22C52F25526600EEC814 /* ClockRingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22BF2F25526600EEC814 /* ClockRingShape.swift */; };
-		BB0B22D42F26B11D00EEC814 /* SudarshanaChakra.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */; };
-		BB0B22D62F26C56800EEC814 /* ClockDialBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +60,10 @@
 		BB0B22D22F257A9000EEC814 /* KadigaramWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KadigaramWidgetExtension.entitlements; sourceTree = "<group>"; };
 		BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SudarshanaChakra.swift; path = Kadigaram/UI/Components/SudarshanaChakra.swift; sourceTree = "<group>"; };
 		BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClockDialBackground.swift; path = Kadigaram/UI/Components/ClockDialBackground.swift; sourceTree = "<group>"; };
+		BB0B23C72F2998E600EEC814 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlarmEditView.swift; path = Kadigaram/UI/Screens/Alarms/AlarmEditView.swift; sourceTree = "<group>"; };
+		BB0B23C82F2998E600EEC814 /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlarmListView.swift; path = Kadigaram/UI/Screens/Alarms/AlarmListView.swift; sourceTree = "<group>"; };
+		BB0B23C92F2998E600EEC814 /* AlarmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlarmListViewModel.swift; path = Kadigaram/UI/Screens/Alarms/AlarmListViewModel.swift; sourceTree = "<group>"; };
+		BB0B23CD2F29993D00EEC814 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationService.swift; path = Kadigaram/Services/NotificationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -175,6 +171,10 @@
 		BB0B20852F15CE7400EEC814 = {
 			isa = PBXGroup;
 			children = (
+				BB0B23CD2F29993D00EEC814 /* NotificationService.swift */,
+				BB0B23C72F2998E600EEC814 /* AlarmEditView.swift */,
+				BB0B23C82F2998E600EEC814 /* AlarmListView.swift */,
+				BB0B23C92F2998E600EEC814 /* AlarmListViewModel.swift */,
 				BB0B22D52F26C56800EEC814 /* ClockDialBackground.swift */,
 				BB0B22D32F26B11D00EEC814 /* SudarshanaChakra.swift */,
 				BB0B22D22F257A9000EEC814 /* KadigaramWidgetExtension.entitlements */,
@@ -407,15 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB0B22D42F26B11D00EEC814 /* SudarshanaChakra.swift in Sources */,
-				BB0B22D62F26C56800EEC814 /* ClockDialBackground.swift in Sources */,
 				BB0B20C12F15D34700EEC814 /* DashboardViewModel.swift in Sources */,
-				BB0B22C02F25526600EEC814 /* ClockDialDesign.swift in Sources */,
-				BB0B22C12F25526600EEC814 /* ClockDialShape.swift in Sources */,
-				BB0B22C22F25526600EEC814 /* AdaptiveClockDialView.swift in Sources */,
-				BB0B22C32F25526600EEC814 /* ClockDialView.swift in Sources */,
-				BB0B22C42F25526600EEC814 /* ClockDialViewModel.swift in Sources */,
-				BB0B22C52F25526600EEC814 /* ClockRingShape.swift in Sources */,
 				BB0B20C22F15D34700EEC814 /* KadigaramApp.swift in Sources */,
 				BB0B20C42F15D34700EEC814 /* DualDateHeader.swift in Sources */,
 			);
@@ -567,18 +559,20 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = kadigaram/kadigaram.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kadigaram/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -586,6 +580,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -603,18 +598,20 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = kadigaram/kadigaram.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZFU93X4XZM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kadigaram/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,6 +619,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kadigaram.kadigaram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
