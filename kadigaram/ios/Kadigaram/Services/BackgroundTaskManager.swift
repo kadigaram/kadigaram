@@ -1,6 +1,8 @@
 import Foundation
 import BackgroundTasks
+import CoreLocation
 import KadigaramCore
+import SixPartsLib
 
 /// Manages background tasks for daily alarm synchronization
 @MainActor
@@ -68,7 +70,8 @@ public final class BackgroundTaskManager {
     
     // MARK: - Sync Logic
     
-    /// Sync all alarms - both notifications and system clock
+    /// Sync all alarms - verify and update both notifications and system clock alarms
+    /// This is called by background tasks to ensure alarms are scheduled at correct times
     public func syncAlarms() async {
         let storageKey = "kNazhigaiAlarms"
         
@@ -79,19 +82,91 @@ public final class BackgroundTaskManager {
             return
         }
         
-        // Sync to notification service
+        guard let location = LocationManager.shared.location else {
+            print("⚠️ BackgroundTaskManager: No location available for sync")
+            return
+        }
+        
+        print("🔄 BackgroundTaskManager: Syncing \(alarms.count) alarms...")
+        
+        let calendar = Calendar.current
+        var alarmsUpdated = false
+        
+        // 1. Sync to notification service (reschedules for next 7 days)
         await NotificationService.shared.scheduleAlarms(alarms)
         
-        // Sync to AlarmKit (iOS 26+)
+        // 2. Sync to AlarmKit (iOS 26+) - verify and update each alarm
         if #available(iOS 26, *) {
-            alarms = await AlarmKitService.shared.syncAllAlarmsToSystemClock(alarms)
+            for (index, alarm) in alarms.enumerated() {
+                guard alarm.isEnabled else { continue }
+                
+                if alarm.addToSystemClock {
+                    // Calculate next occurrence
+                    var targetDate: Date?
+                    
+                    // Try today first
+                    if let todayDate = SixPartsLib.calculateDate(
+                        nazhigai: alarm.nazhigai,
+                        vinazhigai: alarm.vinazhigai,
+                        on: Date(),
+                        location: location
+                    ), todayDate > Date() {
+                        targetDate = todayDate
+                    } else {
+                        // Try tomorrow
+                        if let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()),
+                           let tomorrowDate = SixPartsLib.calculateDate(
+                            nazhigai: alarm.nazhigai,
+                            vinazhigai: alarm.vinazhigai,
+                            on: tomorrow,
+                            location: location
+                           ) {
+                            targetDate = tomorrowDate
+                        }
+                    }
+                    
+                    if let targetDate = targetDate {
+                        do {
+                            // Create or update system alarm with calculated date
+                            let alarmId = try await AlarmKitService.shared.createOrUpdateSystemAlarm(
+                                for: alarm,
+                                targetDate: targetDate
+                            )
+                            
+                            // Update systemAlarmId if changed
+                            if alarms[index].systemAlarmId != alarmId {
+                                alarms[index].systemAlarmId = alarmId
+                                alarmsUpdated = true
+                                print("✅ BackgroundTaskManager: Updated system alarm for '\(alarm.label)' to \(targetDate)")
+                            } else {
+                                print("✓ BackgroundTaskManager: Verified system alarm for '\(alarm.label)' is correct")
+                            }
+                        } catch {
+                            print("❌ BackgroundTaskManager: Failed to sync alarm '\(alarm.label)': \(error)")
+                        }
+                    }
+                } else if let systemId = alarm.systemAlarmId {
+                    // Alarm has system alarm but toggle is off - remove it
+                    do {
+                        try await AlarmKitService.shared.deleteSystemAlarm(id: systemId)
+                        alarms[index].systemAlarmId = nil
+                        alarmsUpdated = true
+                        print("🗑️ BackgroundTaskManager: Removed system alarm (toggle disabled)")
+                    } catch {
+                        print("❌ BackgroundTaskManager: Failed to delete system alarm: \(error)")
+                    }
+                }
+            }
             
-            // Save updated alarms with systemAlarmId
-            if let encoded = try? JSONEncoder().encode(alarms) {
-                UserDefaults.standard.set(encoded, forKey: storageKey)
+            // Save updated alarms if any changes
+            if alarmsUpdated {
+                if let encoded = try? JSONEncoder().encode(alarms) {
+                    UserDefaults.standard.set(encoded, forKey: storageKey)
+                    print("💾 BackgroundTaskManager: Saved updated alarms")
+                }
             }
         }
         
-        print("📅 BackgroundTaskManager: Synced \(alarms.count) alarms")
+        print("✅ BackgroundTaskManager: Sync complete")
     }
 }
