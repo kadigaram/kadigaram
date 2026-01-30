@@ -1,6 +1,8 @@
 import SwiftUI
 import Combine
+import CoreLocation
 import KadigaramCore
+import SixPartsLib
 
 struct AlarmListView: View {
     @StateObject private var viewModel = AlarmListViewModel()
@@ -57,6 +59,7 @@ struct AlarmRowView: View {
     
     @State private var isEnabled: Bool
     @State private var addToSystemClock: Bool
+    @ObservedObject private var locationManager = LocationManager.shared
     
     init(alarm: NazhigaiAlarm, onToggle: @escaping (Bool) -> Void, onSystemClockToggle: @escaping (Bool) -> Void = { _ in }) {
         self.alarm = alarm
@@ -64,6 +67,50 @@ struct AlarmRowView: View {
         self.onSystemClockToggle = onSystemClockToggle
         self._isEnabled = State(initialValue: alarm.isEnabled)
         self._addToSystemClock = State(initialValue: alarm.addToSystemClock)
+    }
+    
+    /// Calculate the next time this alarm will fire
+    private var nextScheduledTime: Date? {
+        guard let location = locationManager.location else { return nil }
+        
+        let calendar = Calendar.current
+        
+        // Try today first
+        if let todayDate = SixPartsLib.calculateDate(
+            nazhigai: alarm.nazhigai,
+            vinazhigai: alarm.vinazhigai,
+            on: Date(),
+            location: location
+        ), todayDate > Date() {
+            return todayDate
+        }
+        
+        // Try tomorrow
+        if let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()),
+           let tomorrowDate = SixPartsLib.calculateDate(
+            nazhigai: alarm.nazhigai,
+            vinazhigai: alarm.vinazhigai,
+            on: tomorrow,
+            location: location
+           ) {
+            return tomorrowDate
+        }
+        
+        return nil
+    }
+    
+    /// Format the next scheduled time for display in local timezone
+    private var formattedNextAlarmTime: String {
+        guard let nextTime = nextScheduledTime else {
+            return "Calculating..."
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.timeZone = .current
+        
+        return formatter.string(from: nextTime)
     }
     
     var body: some View {
@@ -105,6 +152,20 @@ struct AlarmRowView: View {
                         }
                 }
                 .padding(.leading, 4)
+                
+                // Show next scheduled time when Add to Clock is enabled
+                if addToSystemClock && isEnabled {
+                    HStack(spacing: 4) {
+                        Image(systemName: "calendar.badge.clock")
+                            .foregroundColor(.blue)
+                            .font(.caption2)
+                        Text("Next: \(formattedNextAlarmTime)")
+                            .font(.caption2)
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.leading, 4)
+                    .padding(.top, 2)
+                }
             }
         }
         .padding(.vertical, 4)

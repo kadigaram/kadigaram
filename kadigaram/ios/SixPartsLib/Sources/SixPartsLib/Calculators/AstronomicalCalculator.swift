@@ -136,12 +136,21 @@ public class AstronomicalCalculator {
         return (tithiNumber, tithiProgress)
     }
     
-    /// Calculate Nakshatra (lunar mansion) from Moon's ecliptic longitude
+    /// Calculate Nakshatra (lunar mansion) from Moon's sidereal longitude
+    /// Uses Lahiri Ayanamsa for sidereal (Vedic) calculation
     public func calculateNakshatra(date: Date, location: CLLocationCoordinate2D) -> (number: Int, progress: Double) {
-        let moonLon = moonLongitude(date: date, location: location)
+        let tropicalMoonLon = moonLongitude(date: date, location: location)
+        let ayanamsa = calculateLahiriAyanamsa(date: date)
         
-        // Nakshatra = Moon longitude / 13.333... degrees (360/27)
-        let nakshatraFloat = moonLon / (360.0 / 27.0)
+        // Convert tropical to sidereal longitude (Vedic system)
+        var siderealMoonLon = tropicalMoonLon - ayanamsa
+        
+        // Normalize to 0-360°
+        if siderealMoonLon < 0 { siderealMoonLon += 360 }
+        if siderealMoonLon >= 360 { siderealMoonLon -= 360 }
+        
+        // Nakshatra = Sidereal Moon longitude / 13.333... degrees (360/27)
+        let nakshatraFloat = siderealMoonLon / (360.0 / 27.0)
         let nakshatraNumber = Int(nakshatraFloat) % 27 + 1 // Nakshatra 1-27
         let nakshatraProgress = nakshatraFloat.truncatingRemainder(dividingBy: 1.0)
         

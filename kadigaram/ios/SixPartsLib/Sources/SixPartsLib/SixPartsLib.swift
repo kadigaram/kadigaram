@@ -160,7 +160,11 @@ public struct SixPartsLib {
         let solar = Solar(for: date, coordinate: location)
         
         // Fail if we can't determine sunrise (e.g., polar regions or error)
-        guard let sunrise = solar?.sunrise else { return nil }
+        guard let sunrise = solar?.sunrise else {
+            print("📊 SixPartsLib.calculateDate() | Nazhigai \(nazhigai):\(vinazhigai) | RefDate: \(date) | Location: (\(location.latitude), \(location.longitude)) | ⚠️ FAILED: sunrise could not be calculated")
+            return nil
+        }
+        
         
         // 2. Calculate offset in seconds
         // 1 Nazhigai = 24 minutes = 1440 seconds
@@ -168,7 +172,12 @@ public struct SixPartsLib {
         let secondsOffset = Double(nazhigai) * 1440.0 + Double(vinazhigai) * 24.0
         
         // 3. Add to sunrise
-        return sunrise.addingTimeInterval(secondsOffset)
+        let result = sunrise.addingTimeInterval(secondsOffset)
+        
+        let formatter = ISO8601DateFormatter()
+        print("📊 SixPartsLib.calculateDate() | Nazhigai \(nazhigai):\(vinazhigai) | RefDate: \(date) | Location: (\(location.latitude), \(location.longitude)) | Sunrise: \(sunrise) | ✅ Result: \(formatter.string(from: result))")
+        
+        return result
     }
 }
 import Solar // Ensure Solar is imported at file level if not already (it was imported in file view, confirming)

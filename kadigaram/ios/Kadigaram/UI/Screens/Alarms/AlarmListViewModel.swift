@@ -1,6 +1,8 @@
 import SwiftUI
 import Combine
+import CoreLocation
 import KadigaramCore
+import SixPartsLib
 
 @MainActor
 class AlarmListViewModel: ObservableObject {
@@ -22,6 +24,24 @@ class AlarmListViewModel: ObservableObject {
     }
     
     func removeAlarm(at offsets: IndexSet) {
+        // Cleanup system alarms before removing
+        Task {
+            if #available(iOS 26, *) {
+                for index in offsets {
+                    let alarm = alarms[index]
+                    if let systemAlarmId = alarm.systemAlarmId {
+                        do {
+                            try await AlarmKitService.shared.deleteSystemAlarm(id: systemAlarmId)
+                            print("🗑️ AlarmListViewModel: Deleted system alarm \(systemAlarmId) for alarm '\(alarm.label)'")
+                        } catch {
+                            print("❌ AlarmListViewModel: Failed to delete system alarm: \(error)")
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Remove from array
         alarms.remove(atOffsets: offsets)
     }
     
@@ -64,6 +84,8 @@ class AlarmListViewModel: ObservableObject {
         Task {
             // Request notification auth
             _ = try? await NotificationService.shared.requestAuthorization()
+            
+            // Schedule notifications (NotificationService already uses SixPartsLib.calculateDate)
             await NotificationService.shared.scheduleAlarms(alarms)
             
             // Sync to AlarmKit (iOS 26+)
@@ -83,20 +105,76 @@ class AlarmListViewModel: ObservableObject {
                     return
                 }
                 
-                let alarmsToSync = alarms.filter { $0.addToSystemClock && $0.isEnabled }
-                print("🔔 AlarmListViewModel: Found \(alarmsToSync.count) alarms to sync to Clock")
+                guard let location = LocationManager.shared.location else {
+                    print("⚠️ AlarmListViewModel: No location available for AlarmKit sync")
+                    return
+                }
                 
-                let updatedAlarms = await AlarmKitService.shared.syncAllAlarmsToSystemClock(alarms)
-                print("🔔 AlarmListViewModel: Sync complete, updated \(updatedAlarms.count) alarms")
+                let calendar = Calendar.current
                 
-                // Update alarms with systemAlarmId without triggering didSet loop
-                for (index, updated) in updatedAlarms.enumerated() {
-                    if alarms.indices.contains(index) && alarms[index].systemAlarmId != updated.systemAlarmId {
-                        // Direct mutation to avoid infinite loop
-                        if let encoded = try? JSONEncoder().encode(updatedAlarms) {
-                            userDefaults.set(encoded, forKey: storageKey)
+                // Iterate over each alarm
+                for alarm in alarms {
+                    if alarm.addToSystemClock && alarm.isEnabled {
+                        // Calculate next occurrence (starting from today, then tomorrow if needed)
+                        var targetDate: Date?
+                        
+                        // Try today first
+                        if let todayDate = SixPartsLib.calculateDate(
+                            nazhigai: alarm.nazhigai,
+                            vinazhigai: alarm.vinazhigai,
+                            on: Date(),
+                            location: location
+                        ), todayDate > Date() {
+                            targetDate = todayDate
+                        } else {
+                            // Try tomorrow
+                            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()),
+                               let tomorrowDate = SixPartsLib.calculateDate(
+                                nazhigai: alarm.nazhigai,
+                                vinazhigai: alarm.vinazhigai,
+                                on: tomorrow,
+                                location: location
+                               ) {
+                                targetDate = tomorrowDate
+                            }
                         }
-                        break
+                        
+                        if let targetDate = targetDate {
+                            do {
+                                let alarmId = try await AlarmKitService.shared.createOrUpdateSystemAlarm(
+                                    for: alarm,
+                                    targetDate: targetDate
+                                )
+                                
+                                // Update alarm with systemAlarmId
+                                if let index = alarms.firstIndex(where: { $0.id == alarm.id }),
+                                   alarms[index].systemAlarmId != alarmId {
+                                    alarms[index].systemAlarmId = alarmId
+                                    
+                                    // Save without triggering reschedule
+                                    if let encoded = try? JSONEncoder().encode(alarms) {
+                                        userDefaults.set(encoded, forKey: storageKey)
+                                    }
+                                }
+                            } catch {
+                                print("❌ AlarmListViewModel: Failed to schedule system alarm: \(error)")
+                            }
+                        }
+                    } else if !alarm.addToSystemClock, let systemId = alarm.systemAlarmId {
+                        // Remove system alarm if toggle is off
+                        do {
+                            try await AlarmKitService.shared.deleteSystemAlarm(id: systemId)
+                            
+                            if let index = alarms.firstIndex(where: { $0.id == alarm.id }) {
+                                alarms[index].systemAlarmId = nil
+                                
+                                if let encoded = try? JSONEncoder().encode(alarms) {
+                                    userDefaults.set(encoded, forKey: storageKey)
+                                }
+                            }
+                        } catch {
+                            print("❌ AlarmListViewModel: Failed to delete system alarm: \(error)")
+                        }
                     }
                 }
             }
