@@ -5,19 +5,46 @@ import SixPartsLib  // Import for Paksha enum
 public struct MoonPhaseView: View {
     let paksha: Paksha
     let illumination: Double // 0.0 to 1.0
+    var showPakshaArrow: Bool = true  // T002: Show waxing/waning arrow indicator
     
-    public init(paksha: Paksha, illumination: Double) {
+    public init(paksha: Paksha, illumination: Double, showPakshaArrow: Bool = true) {
         self.paksha = paksha
         self.illumination = illumination
+        self.showPakshaArrow = showPakshaArrow
     }
     
     public var body: some View {
-        Image(systemName: moonSymbolName)
-            .renderingMode(.original) // Use multicolor if available, or simpler
-            .font(.title3)
-            .foregroundColor(.primary) // Allow parent to tint? Or fixed color?
-            .accessibilityLabel(accessibilityLabel)
-            .accessibilityValue("\(Int(illumination * 100))% illuminated")
+        // Arrow positioned above (waxing) or below (waning) the moon icon
+        VStack(spacing: 0) {
+            // Up arrow above moon for waxing (Shukla)
+            if showPakshaArrow && paksha == .shukla {
+                Image(systemName: Self.arrowSymbolName(for: paksha))
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+            }
+            
+            Image(systemName: moonSymbolName)
+                .renderingMode(.original)
+                .font(.title3)
+            
+            // Down arrow below moon for waning (Krishna)
+            if showPakshaArrow && paksha == .krishna {
+                Image(systemName: Self.arrowSymbolName(for: paksha))
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+            }
+        }
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityValue("\(Int(illumination * 100))% illuminated")
+    }
+    
+    // MARK: - Public Static for Testing
+    
+    /// Returns the SF Symbol name for the Paksha arrow indicator
+    /// - Parameter paksha: The lunar phase (shukla = waxing, krishna = waning)
+    /// - Returns: SF Symbol name for the arrow direction
+    public static func arrowSymbolName(for paksha: Paksha) -> String {
+        paksha == .shukla ? "chevron.up" : "chevron.down"
     }
     
     private var moonSymbolName: String {
@@ -37,9 +64,12 @@ public struct MoonPhaseView: View {
         }
     }
     
+    // T004: Updated accessibility label includes waxing/waning
     private var accessibilityLabel: String {
-        if illumination < 0.05 { return "New Moon" }
-        if illumination > 0.95 { return "Full Moon" }
+        let directionText = paksha == .shukla ? " (waxing)" : " (waning)"
+        
+        if illumination < 0.05 { return "New Moon" + directionText }
+        if illumination > 0.95 { return "Full Moon" + directionText }
         
         let phaseName: String
         if paksha == .shukla {
@@ -51,7 +81,7 @@ public struct MoonPhaseView: View {
             else if illumination < 0.65 { phaseName = "Last Quarter" }
             else { phaseName = "Waning Gibbous" }
         }
-        return phaseName + " Moon"
+        return phaseName + " Moon" + directionText
     }
 }
 

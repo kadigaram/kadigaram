@@ -26,9 +26,9 @@ struct DualDateHeader: View {
                 .fontWeight(.bold)
                 .foregroundColor(theme.foregroundColor)
             
-            // Bottom Line: Combined Vedic + Tamil Date
+            // Middle Line: Combined Vedic + Tamil Date with Moon Phase
             HStack(spacing: 8) {
-                // Moon Phase Icon
+                // Moon Phase Icon with waxing/waning arrow
                 MoonPhaseView(paksha: vedicDate.paksha, illumination: vedicDate.pakshamIllumination)
                     .foregroundStyle(theme.secondaryForegroundColor)
                 
@@ -45,6 +45,11 @@ struct DualDateHeader: View {
                         .multilineTextAlignment(.center)
                 }
             }
+            
+            // T005: Bottom Line - Nakshatra (localized)
+            Text(bhashaEngine.localizedString(vedicDate.nakshatra))
+                .font(.subheadline)
+                .foregroundColor(theme.secondaryForegroundColor)
         }
         .padding()
         .background(Color.secondary.opacity(0.1))
