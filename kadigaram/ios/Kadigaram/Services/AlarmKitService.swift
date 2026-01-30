@@ -153,7 +153,13 @@ public final class AlarmKitService {
         // 7. Schedule via Manager
         _ = try await AlarmManager.shared.schedule(id: alarmID, configuration: configuration)
         
-        print("🔔 AlarmKitService: Scheduled system alarm '\(title)' (\(alarmID)) for \(targetDate)")
+        let formatter = ISO8601DateFormatter()
+        print("🔔 AlarmKitService: ✅ SYSTEM CLOCK ALARM SCHEDULED")
+        print("   Alarm: '\(title)' (ID: \(alarmID))")
+        print("   Nazhigai: \(alarm.nazhigai):\(alarm.vinazhigai)")
+        print("   Target Date: \(formatter.string(from: targetDate)) (\(targetDate))")
+        print("   Sound: \(sound)")
+        
         return alarmID.uuidString
         
         #else
