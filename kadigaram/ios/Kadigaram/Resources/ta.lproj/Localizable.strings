@@ -98,3 +98,33 @@
 "year_raktakshi" = "ரக்தாட்சி";
 "year_krodhana" = "குரோதன";
 "year_akshaya" = "அக்ஷய";
+
+
+/* Nakshatras - Tamil */
+"nakshatra_ashwini" = "அசுவினி";
+"nakshatra_bharani" = "பரணி";
+"nakshatra_krittika" = "கார்த்திகை";
+"nakshatra_rohini" = "ரோகிணி";
+"nakshatra_mrigashira" = "மிருகசீரிடம்";
+"nakshatra_ardra" = "திருவாதிரை";
+"nakshatra_punarvasu" = "புனர்பூசம்";
+"nakshatra_pushya" = "பூசம்";
+"nakshatra_ashlesha" = "ஆயில்யம்";
+"nakshatra_magha" = "மகம்";
+"nakshatra_purva_phalguni" = "பூரம்";
+"nakshatra_uttara_phalguni" = "உத்திரம்";
+"nakshatra_hasta" = "அஸ்தம்";
+"nakshatra_chitra" = "சித்திரை";
+"nakshatra_swati" = "சுவாதி";
+"nakshatra_vishakha" = "விசாகம்";
+"nakshatra_anuradha" = "அனுஷம்";
+"nakshatra_jyeshtha" = "கேட்டை";
+"nakshatra_mula" = "மூலம்";
+"nakshatra_purva_ashadha" = "பூராடம்";
+"nakshatra_uttara_ashadha" = "உத்திராடம்";
+"nakshatra_shravana" = "திருவோணம்";
+"nakshatra_dhanishta" = "அவிட்டம்";
+"nakshatra_shatabhisha" = "சதயம்";
+"nakshatra_purva_bhadrapada" = "பூரட்டாதி";
+"nakshatra_uttara_bhadrapada" = "உத்திரட்டாதி";
+"nakshatra_revati" = "ரேவதி";

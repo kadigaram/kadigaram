@@ -10,6 +10,8 @@ Auto-generated from all feature plans. Last updated: 2026-01-12
 - Swift 6.0 (iOS 17+, backward compatible to iOS 16) (005-accurate-tamil-date)
 - N/A (calculations are real-time, no persistence) (005-accurate-tamil-date)
 - UserDefaults (existing, for theme preferences if needed) (006-clock-ui-improvements)
+- Swift 6.0 + SwiftUI, KadigaramCore, SixPartsLib (008-moon-nakshatra-ui)
+- N/A (display only, uses existing VedicDate model) (008-moon-nakshatra-ui)
 
 - Swift 6.0 + SwiftUI, WidgetKit, CoreLocation, Foundation (Date/Calendar) (001-kadigaram-core)
 
@@ -29,9 +31,9 @@ tests/
 Swift 6.0: Follow standard conventions
 
 ## Recent Changes
+- 008-moon-nakshatra-ui: Added Swift 6.0 + SwiftUI, KadigaramCore, SixPartsLib
 - 006-clock-ui-improvements: Added Swift 6.0 (iOS 17+, backward compatible to iOS 16)
 - 005-accurate-tamil-date: Added Swift 6.0 (iOS 17+, backward compatible to iOS 16)
-- 004-ui-calculation-enhancements: Added Swift 6.0 + SwiftUI, existing `VedicEngine`, **NEW: Swiss Ephemeris library (or equivalent astronomical calculation library)**
 
 
 <!-- MANUAL ADDITIONS START -->
