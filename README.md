@@ -69,6 +69,7 @@ Water clocks (*Jala Yantra*) in ancient India used a copper bowl with a small ho
 - 🕐 **60-Hour Solar Clock** — Ancient Indian time system with modern UI, counting Nazhigai from sunrise
 - ⏰ **Vedic Alarms** — Set alarms based on Nazhigai time using Apple's AlarmKit (iOS 26+)
 - 🌙 **Moon Phases** — Shows waxing (Shukla Paksha ↑) and waning (Krishna Paksha ↓) moon phases
+- ☀️ **Ayana Indicator** — Visual indicator (↑/↓) for Uttarayanam (North) and Dakshinayanam (South) solar movements
 - 📍 **Location-Based Sunrise** — Supports both GPS and manual location entry for accurate sunrise calculation
 - 📅 **Indian Calendar** — Displays Tithi (lunar day), Tamil Month, Date, and Star (Nakshatra)
 - 🌐 **Multi-Language** — Supports Tamil (தமிழ்) and English

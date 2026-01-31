@@ -157,6 +157,35 @@ public class AstronomicalCalculator {
         return (nakshatraNumber, nakshatraProgress)
     }
     
+    // MARK: - Ayana Calculation (Feature 009)
+    
+    /// Calculate current Ayana (Sun's directional movement) based on date
+    /// Uses simplified calendar-based approach with standard solstice dates
+    /// - Parameter date: The date to calculate Ayana for
+    /// - Returns: Current Ayana (Uttarayanam or Dakshinayanam)
+    public func calculateAyana(for date: Date) -> Ayana {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.month, .day], from: date)
+        
+        guard let month = components.month, let day = components.day else {
+            // Fallback: assume Uttarayanam (safer default for most of year)
+            return .uttarayanam
+        }
+        
+        // Uttarayanam: Dec 22 - Jun 21
+        // Dakshinayanam: Jun 22 - Dec 21
+        
+        // Check for Dakshinayanam period
+        if (month == 6 && day >= 22) ||      // June 22-30
+           (month > 6 && month < 12) ||      // July-November
+           (month == 12 && day < 22) {       // December 1-21
+            return .dakshinayanam
+        }
+        
+        // Otherwise Uttarayanam (Jan-May, Jun 1-21, Dec 22-31)
+        return .uttarayanam
+    }
+
     // MARK: - Helper Methods
     
     /// Convert Date to Julian Day

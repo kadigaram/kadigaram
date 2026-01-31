@@ -64,6 +64,9 @@ public class VedicEngine: VedicEngineProvider {
         // Maasa calculation (simplified - would need solar ingress times for full accuracy)
         let monthName = Self.maasaFromDate(date, calendarSystem: calendarSystem)
         
+        // Calculate Ayana (Feature 009)
+        let ayana = calculator.calculateAyana(for: date)
+        
        return VedicDate(
             samvatsara: samvatsara,
             samvatsaraIndex: samvatsaraIndex,
@@ -76,7 +79,8 @@ public class VedicEngine: VedicEngineProvider {
             nakshatra: nakshatraName,
             nakshatraProgress: nakshatraProgress,
             nakshatraNumber: nakshatraNumber,
-            day: day
+            day: day,
+            ayana: ayana
         )
     }
     

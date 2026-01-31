@@ -25,6 +25,8 @@ public struct VedicDate: Equatable, Sendable {
     public let nakshatraProgress: Double   // Nakshatra completion 0.0-1.0
     public let nakshatraNumber: Int        // Nakshatra number 1-27
     public let day: Int                    // Day of month
+    public let ayana: Ayana                // Sun's directional movement (Feature 009)
+
     
     public init(
         samvatsara: String,
@@ -38,7 +40,8 @@ public struct VedicDate: Equatable, Sendable {
         nakshatra: String,
         nakshatraProgress: Double,
         nakshatraNumber: Int,
-        day: Int
+        day: Int,
+        ayana: Ayana
     ) {
         self.samvatsara = samvatsara
         self.samvatsaraIndex = samvatsaraIndex
@@ -52,6 +55,7 @@ public struct VedicDate: Equatable, Sendable {
         self.nakshatraProgress = nakshatraProgress
         self.nakshatraNumber = nakshatraNumber
         self.day = day
+        self.ayana = ayana
     }
 }
 

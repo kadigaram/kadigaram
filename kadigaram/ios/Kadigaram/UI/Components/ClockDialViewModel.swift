@@ -43,6 +43,9 @@ final class ClockDialViewModel: ObservableObject {
     /// Current Vedic time data
     @Published var vedicTime: VedicTime?
     
+    /// Current Vedic date data (including Ayana)
+    @Published var vedicDate: VedicDate?
+    
     // MARK: - Time Calculations
     
     /// Calculate the angle for the Nazhigai indicator (0-360 degrees)
@@ -100,8 +103,11 @@ final class ClockDialViewModel: ObservableObject {
     }
     
     /// Update with new VedicTime data
-    func updateVedicTime(_ time: VedicTime) {
+    func updateVedicTime(_ time: VedicTime, date: VedicDate? = nil) {
         self.vedicTime = time
+        if let date = date {
+            self.vedicDate = date
+        }
         calculateTimeLabels()
     }
     

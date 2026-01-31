@@ -81,11 +81,29 @@ struct ClockDialView: View {
                     .animation(viewModel.design.animationConfig.smoothHandMovement ? .linear : .spring(), value: viewModel.nazhigaiAngle())
                 
                 // 6. Center Digital Display
-                VStack(spacing: width * 0.02) {
+                VStack(spacing: width * 0.01) { // Reduced spacing for arrow
+                    
+                    // Ayana Indicator (Feature 009)
+                    // Show Up arrow for Uttarayanam (Northward)
+                    if let ayana = viewModel.vedicDate?.ayana, ayana == .uttarayanam {
+                        Image(systemName: "arrow.up")
+                            .font(.system(size: width * 0.03, weight: .bold))
+                            .foregroundColor(viewModel.design.colorPalette.primaryGold)
+                            .shadow(color: viewModel.design.colorPalette.primaryGold.opacity(0.5), radius: 2)
+                    }
+                    
                     Image(systemName: "sun.max.fill")
                         .foregroundColor(viewModel.design.colorPalette.primaryGold)
                         .font(.system(size: width * 0.08))
                         .shadow(color: viewModel.design.colorPalette.primaryGold.opacity(0.5), radius: 5)
+                    
+                    // Show Down arrow for Dakshinayanam (Southward)
+                    if let ayana = viewModel.vedicDate?.ayana, ayana == .dakshinayanam {
+                        Image(systemName: "arrow.down")
+                            .font(.system(size: width * 0.03, weight: .bold))
+                            .foregroundColor(viewModel.design.colorPalette.primaryGold)
+                            .shadow(color: viewModel.design.colorPalette.primaryGold.opacity(0.5), radius: 2)
+                    }
                     
                     if let time = viewModel.vedicTime {
                         Text("\(String(format: "%02d", time.nazhigai)) : \(String(format: "%02d", time.vinazhigai))")
