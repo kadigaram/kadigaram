@@ -2,64 +2,22 @@ import SwiftUI
 import KadigaramCore
 
 struct LanguageToggle: View {
-    @ObservedObject var  bhashaEngine: BhashaEngine
-    @State private var showingMenu = false
-    
-    var body: some View {
-        Button(action: {
-            showingMenu = true
-        }) {
-            HStack {
-                Image(systemName: "textformat.size") // Icon representing language/text
-                Text(currentLanguageLabel)
-            }
-            .padding(10)
-            .background(Color.secondary.opacity(0.1))
-            .cornerRadius(20)
-        }
-        .sheet(isPresented: $showingMenu) {
-            LanguageSelectionView(bhashaEngine: bhashaEngine)
-                .presentationDetents([.medium])
-        }
-    }
-    
-    private var currentLanguageLabel: String {
-        switch bhashaEngine.currentLanguage {
-        case .english: return "English"
-        case .tamil: return "தமிழ்"
-        case .sanskrit: return "संस्कृतम्"
-        case .telugu: return "తెలుగు"
-        case .kannada: return "ಕನ್ನಡ"
-        case .malayalam: return "മലയാളം"
-        }
-    }
-}
-
-struct LanguageSelectionView: View {
     @ObservedObject var bhashaEngine: BhashaEngine
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        NavigationStack {
-            List(AppLanguage.allCases, id: \.self) { language in
-                Button(action: {
-                    bhashaEngine.setLanguage(language)
-                    dismiss()
-                }) {
-                    HStack {
-                        Text(languageName(for: language))
-                            .foregroundColor(.primary)
-                        Spacer()
-                        if bhashaEngine.currentLanguage == language {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.blue)
-                        }
-                    }
-                }
+        Picker(selection: Binding(
+            get: { bhashaEngine.currentLanguage },
+            set: { newLanguage in
+                bhashaEngine.setLanguage(newLanguage)
             }
-            .navigationTitle("Choose Language")
-            .navigationBarTitleDisplayMode(.inline)
+        )) {
+            ForEach(AppLanguage.allCases, id: \.self) { language in
+                Text(languageName(for: language)).tag(language)
+            }
+        } label: {
+            Label("Language", systemImage: "textformat.size")
         }
+        .pickerStyle(.menu)
     }
     
     func languageName(for language: AppLanguage) -> String {
