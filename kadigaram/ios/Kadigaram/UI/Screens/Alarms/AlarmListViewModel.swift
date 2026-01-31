@@ -117,26 +117,42 @@ class AlarmListViewModel: ObservableObject {
                     if alarm.addToSystemClock && alarm.isEnabled {
                         // Calculate next occurrence (starting from today, then tomorrow if needed)
                         var targetDate: Date?
+                        let now = Date()
                         
-                        // Try today first
-                        if let todayDate = SixPartsLib.calculateDate(
+                        print("🔍 AlarmListViewModel: Calculating next occurrence for '\(alarm.label)' (Nazhigai \(alarm.nazhigai):\(alarm.vinazhigai))")
+                        
+                        // Try today's sunrise first
+                        let todayDate = SixPartsLib.calculateDate(
                             nazhigai: alarm.nazhigai,
                             vinazhigai: alarm.vinazhigai,
-                            on: Date(),
+                            on: now,
                             location: location
-                        ), todayDate > Date() {
-                            targetDate = todayDate
-                        } else {
-                            // Try tomorrow
-                            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()),
-                               let tomorrowDate = SixPartsLib.calculateDate(
-                                nazhigai: alarm.nazhigai,
-                                vinazhigai: alarm.vinazhigai,
-                                on: tomorrow,
-                                location: location
-                               ) {
-                                targetDate = tomorrowDate
+                        )
+                        
+                        if let todayDate = todayDate {
+                            let timeUntil = todayDate.timeIntervalSince(now)
+                            print("   📅 Today's calculation: \(todayDate), time until: \(timeUntil/3600) hours")
+                            
+                            if todayDate > now {
+                                // Calculation is in the future, use it
+                                targetDate = todayDate
+                                print("   ✅ Using today's calculation (alarm is in future)")
+                            } else {
+                                // Today's calculation is in past, try tomorrow
+                                print("   ⏭️ Today's calculation is in past, trying tomorrow")
+                                if let tomorrow = calendar.date(byAdding: .day, value: 1, to: now),
+                                   let tomorrowDate = SixPartsLib.calculateDate(
+                                    nazhigai: alarm.nazhigai,
+                                    vinazhigai: alarm.vinazhigai,
+                                    on: tomorrow,
+                                    location: location
+                                   ) {
+                                    targetDate = tomorrowDate
+                                    print("   📅 Tomorrow's calculation: \(tomorrowDate)")
+                                }
                             }
+                        } else {
+                            print("   ❌ Failed to calculate date for today")
                         }
                         
                         if let targetDate = targetDate {
