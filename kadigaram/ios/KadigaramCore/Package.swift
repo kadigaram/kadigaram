@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "KadigaramCore",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17)
     ],
@@ -29,6 +30,9 @@ let package = Package(
             dependencies: [
                 .product(name: "Solar", package: "Solar"),
                 .product(name: "SixPartsLib", package: "SixPartsLib"),
+            ],
+            resources: [
+                .process("Resources")
             ]
         ),
         .testTarget(

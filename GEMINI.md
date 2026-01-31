@@ -12,6 +12,8 @@ Auto-generated from all feature plans. Last updated: 2026-01-12
 - UserDefaults (existing, for theme preferences if needed) (006-clock-ui-improvements)
 - Swift 6.0 + SwiftUI, KadigaramCore, SixPartsLib (008-moon-nakshatra-ui)
 - N/A (display only, uses existing VedicDate model) (008-moon-nakshatra-ui)
+- Swift 6.0 + SwiftUI (Text with Markdown support), Foundation, BhashaEngine (010-help-screen)
+- Read-only bundle resources (010-help-screen)
 
 - Swift 6.0 + SwiftUI, WidgetKit, CoreLocation, Foundation (Date/Calendar) (001-kadigaram-core)
 
@@ -31,9 +33,9 @@ tests/
 Swift 6.0: Follow standard conventions
 
 ## Recent Changes
+- 010-help-screen: Added Swift 6.0 + SwiftUI (Text with Markdown support), Foundation, BhashaEngine
 - 008-moon-nakshatra-ui: Added Swift 6.0 + SwiftUI, KadigaramCore, SixPartsLib
 - 006-clock-ui-improvements: Added Swift 6.0 (iOS 17+, backward compatible to iOS 16)
-- 005-accurate-tamil-date: Added Swift 6.0 (iOS 17+, backward compatible to iOS 16)
 
 
 <!-- MANUAL ADDITIONS START -->

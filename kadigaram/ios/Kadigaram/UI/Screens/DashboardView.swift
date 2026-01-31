@@ -8,6 +8,7 @@ struct DashboardView: View {
     @StateObject private var clockViewModel = ClockDialViewModel() // New clock VM
     @State private var showSettings = false
     @State private var showAlarms = false
+    @State private var showHelp = false
     @Environment(\.scenePhase) private var scenePhase
     
     /// Theme object injected from app root
@@ -48,30 +49,11 @@ struct DashboardView: View {
                 // Adaptive Clock Dial (Replacing NazhigaiWheel)
                 AdaptiveClockDialView(viewModel: clockViewModel)
                     .padding()
-                    // Apply design customization if needed via clockViewModel.applyIconDesign(...)
-                    // For now using default which is icon-matched
                 
                 Spacer()
                 
-                HStack {
-                    Menu {
-                        Button(action: { showSettings = true }) {
-                            Label("Settings", systemImage: "gear")
-                        }
-                        Button(action: { showAlarms = true }) {
-                            Label("Alarms", systemImage: "bell.fill")
-                        }
-                        LanguageToggle(bhashaEngine: bhashaEngine)
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .font(.title2)
-                            .padding()
-                    }
-                    
-                    Spacer()
-                }
+                menuBar
             }
-
         }
         .onChange(of: viewModel.vedicTime) { _, newTime in
             clockViewModel.updateVedicTime(newTime, date: viewModel.vedicDate)
@@ -88,21 +70,19 @@ struct DashboardView: View {
         .sheet(isPresented: $showAlarms) {
             AlarmListView()
         }
+        .sheet(isPresented: $showHelp) {
+            HelpView(bhashaEngine: bhashaEngine)
+        }
         .onChange(of: colorScheme) { _, newScheme in
             theme.updateColorScheme(newScheme)
         }
-        .onChange(of: colorSchemeContrast) { _, _ in
-            updateAccessibilitySettings()
-        }
-        .onChange(of: reduceTransparency) { _, _ in
-            updateAccessibilitySettings()
-        }
-        .onChange(of: dynamicTypeSize) { _, _ in
-            updateAccessibilitySettings()
-        }
-        .onChange(of: reduceMotion) { _, _ in
-            updateAccessibilitySettings()
-        }
+        .modifier(AccessibilityUpdater(
+            colorSchemeContrast: colorSchemeContrast,
+            reduceTransparency: reduceTransparency,
+            dynamicTypeSize: dynamicTypeSize,
+            reduceMotion: reduceMotion,
+            action: updateAccessibilitySettings
+        ))
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
                 NotificationService.shared.rescheduleFromPersistence()
@@ -113,6 +93,45 @@ struct DashboardView: View {
             updateAccessibilitySettings()
         }
         .environmentObject(appConfig) // Inject AppConfig for child views (ClockDialView)
+    }
+    
+    private var menuBar: some View {
+        HStack {
+            Menu {
+                Button(action: { showSettings = true }) {
+                    Label("Settings", systemImage: "gear")
+                }
+                Button(action: { showAlarms = true }) {
+                    Label("Alarms", systemImage: "bell.fill")
+                }
+                Button(action: { showHelp = true }) {
+                    Label("Help", systemImage: "questionmark.circle")
+                }
+                LanguageToggle(bhashaEngine: bhashaEngine)
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .font(.title2)
+                    .padding()
+            }
+            
+            Spacer()
+        }
+    }
+
+    struct AccessibilityUpdater: ViewModifier {
+        let colorSchemeContrast: ColorSchemeContrast
+        let reduceTransparency: Bool
+        let dynamicTypeSize: DynamicTypeSize
+        let reduceMotion: Bool
+        let action: () -> Void
+
+        func body(content: Content) -> some View {
+            content
+                .onChange(of: colorSchemeContrast) { _, _ in action() }
+                .onChange(of: reduceTransparency) { _, _ in action() }
+                .onChange(of: dynamicTypeSize) { _, _ in action() }
+                .onChange(of: reduceMotion) { _, _ in action() }
+        }
     }
     
 
