@@ -74,7 +74,10 @@ struct DashboardView: View {
 
         }
         .onChange(of: viewModel.vedicTime) { _, newTime in
-            clockViewModel.updateVedicTime(newTime)
+            clockViewModel.updateVedicTime(newTime, date: viewModel.vedicDate)
+        }
+        .onChange(of: viewModel.vedicDate) { _, newDate in
+            clockViewModel.updateVedicTime(viewModel.vedicTime, date: newDate)
         }
         .onChange(of: viewModel.currentDate) { _, newDate in
             clockViewModel.updateCurrentTime(to: newDate)

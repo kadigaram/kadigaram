@@ -22,29 +22,29 @@
 
 **Purpose**: Establish astronomical basis and design decisions before implementation
 
-- [ ] T001 Research solstice date accuracy requirements
+- [x] T001 Research solstice date accuracy requirements
   - Confirm December 21-22 and June 21-22 ranges
   - Document precision requirements (±1 day acceptable for MVP)
   - Record in `specs/009-ayana-indicator/research.md`
 
-- [ ] T002 Select SF Symbol for arrow indicators
+- [x] T002 Select SF Symbol for arrow indicators
   - Test candidates: `arrow.up`, `arrow.down`, `chevron.up`, `chevron.down`, `arrowtriangle.up.fill`
   - Verify visibility at 20-30% of Sun symbol size
   - Screenshot comparison in light/dark modes
   - Record decision in `specs/009-ayana-indicator/research.md`
 
-- [ ] T003 Create data model documentation
+- [x] T003 Create data model documentation
   - Document `Ayana` enum design (2 cases)
   - Document `VedicDate` extension (new `ayana` property)
   - Write in `specs/009-ayana-indicator/data-model.md`
 
-- [ ] T004 Define API contract for calculateAyana()
+- [x] T004 Define API contract for calculateAyana()
   - Specify input: `Date`
   - Specify output: `Ayana`
   - Document 6 test cases (Jan, Jun 21, Jun 22, Aug, Dec 21, Dec 22)
   - Write in `specs/009-ayana-indicator/contracts/ayana-calculation.md`
 
-- [ ] T005 Write quickstart guide for developers
+- [x] T005 Write quickstart guide for developers
   - Code example: accessing `vedicDate.ayana`
   - UI integration example: arrow rendering
   - Testing instructions for manual verification
@@ -64,52 +64,52 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T006 [P] [US1] Create test file `kadigaram/ios/SixPartsLib/Tests/SixPartsLibTests/AyanaCalculationTests.swift`
+- [x] T006 [P] [US1] Create test file `kadigaram/ios/SixPartsLib/Tests/SixPartsLibTests/AyanaCalculationTests.swift`
   - Add XCTest imports
   - Add `AstronomicalCalculator` import
   - Create empty test class
 
-- [ ] T007 [P] [US1] Write `testUttarayanamMidWinter()` test
+- [x] T007 [P] [US1] Write `testUttarayanamMidWinter()` test
   - Input: Date(Jan 15, 2026)
   - Expected: `.uttarayanam`
   - Verify test FAILS (method doesn't exist yet)
 
-- [ ] T008 [P] [US1] Write `testUttarayanamBeforeSolstice()` test
+- [x] T008 [P] [US1] Write `testUttarayanamBeforeSolstice()` test
   - Input: Date(Jun 21, 2026)
   - Expected: `.uttarayanam`
   - Verify test FAILS
 
-- [ ] T009 [P] [US1] Write `testDakshinayanamTransition()` test
+- [x] T009 [P] [US1] Write `testDakshinayanamTransition()` test
   - Input: Date(Jun 22, 2026)
   - Expected: `.dakshinayanam`
   - Verify test FAILS
 
-- [ ] T010 [P] [US1] Write `testDakshinayanamMidSummer()` test
+- [x] T010 [P] [US1] Write `testDakshinayanamMidSummer()` test
   - Input: Date(Aug 31, 2026)
   - Expected: `.dakshinayanam`
   - Verify test FAILS
 
-- [ ] T011 [P] [US1] Write `testDakshinayanamBeforeSolstice()` test
+- [x] T011 [P] [US1] Write `testDakshinayanamBeforeSolstice()` test
   - Input: Date(Dec 21, 2026)
   - Expected: `.dakshinayanam`
   - Verify test FAILS
 
-- [ ] T012 [P] [US1] Write `testUttarayanamTransition()` test
+- [x] T012 [P] [US1] Write `testUttarayanamTransition()` test
   - Input: Date(Dec 22, 2026)
   - Expected: `.uttarayanam`
   - Verify test FAILS
 
-- [ ] T013 [P] [US1] Write `testEdgeCaseSpringEquinox()` test
+- [x] T013 [P] [US1] Write `testEdgeCaseSpringEquinox()` test
   - Input: Date(Mar 20, 2026)
   - Expected: `.uttarayanam`
   - Verify test FAILS
 
-- [ ] T014 [P] [US1] Write `testEdgeCaseAutumnEquinox()` test
+- [x] T014 [P] [US1] Write `testEdgeCaseAutumnEquinox()` test
   - Input: Date(Sep 22, 2026)
   - Expected: `.dakshinayanam`
   - Verify test FAILS
 
-- [ ] T015 [US1] Write `testAyanaCalculationPerformance()` test
+- [x] T015 [US1] Write `testAyanaCalculationPerformance()` test
   - Measure time for 1000 calculations
   - Expected: < 5ms total (< 0.005ms per calculation)
   - Verify test FAILS
@@ -118,19 +118,19 @@
 
 #### SixPartsLib Core Logic
 
-- [ ] T016 [P] [US1] Create `Ayana` enum in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Models/Ayana.swift`
+- [x] T016 [P] [US1] Create `Ayana` enum in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Models/Ayana.swift`
   - Add `import Foundation`
   - Define `enum Ayana: String, Equatable, Sendable, Codable`
   - Add cases: `.uttarayanam`, `.dakshinayanam`
   - Add doc comments explaining each case
 
-- [ ] T017 [US1] Extend `VedicDate` struct in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Models/VedicDate.swift`
+- [x] T017 [US1] Extend `VedicDate` struct in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Models/VedicDate.swift`
   - Add `public let ayana: Ayana` property
   - Update `init()` to include `ayana` parameter
   - Add `self.ayana = ayana` assignment
   - Update doc comments
 
-- [ ] T018 [US1] Implement `calculateAyana()` in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Calculators/AstronomicalCalculator.swift`
+- [x] T018 [US1] Implement `calculateAyana()` in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/Calculators/AstronomicalCalculator.swift`
   - Add method signature: `public func calculateAyana(for date: Date) -> Ayana`
   - Extract month and day using `Calendar.current.dateComponents([.month, .day], from: date)`
   - Implement logic:
@@ -141,7 +141,7 @@
   - Add fallback: return `.uttarayanam` if date components fail
   - Add doc comments with examples
 
-- [ ] T019 [US1] Update `VedicEngine` in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/SixPartsLib.swift`
+- [x] T019 [US1] Update `VedicEngine` in `kadigaram/ios/SixPartsLib/Sources/SixPartsLib/SixPartsLib.swift`
   - Import `AstronomicalCalculator` if not already imported
   - Call `calculator.calculateAyana(for: date)` when building VedicDate
   - Pass `ayana` parameter to `VedicDate.init()`
@@ -153,12 +153,12 @@
 
 #### UI Integration (Kadigaram App)
 
-- [ ] T021 [US1] Update `ClockDialViewModel` in `kadigaram/ios/Kadigaram/UI/Components/ClockDialViewModel.swift`
+- [x] T021 [US1] Update `ClockDialViewModel` in `kadigaram/ios/Kadigaram/UI/Components/ClockDialViewModel.swift`
   - Verify `vedicDate: VedicDate?` property exists (should be published already)
   - No changes needed (Ayana is automatically included in VedicDate)
   - Add comment: `// Ayana (Feature 009) available via vedicDate.ayana`
 
-- [ ] T022 [US1] Add arrow indicator to `ClockDialView` in `kadigaram/ios/Kadigaram/UI/Components/ClockDialView.swift`
+- [x] T022 [US1] Add arrow indicator to `ClockDialView` in `kadigaram/ios/Kadigaram/UI/Components/ClockDialView.swift`
   - Locate center `VStack` containing Sun symbol (line ~84-106)
   - After Sun `Image(systemName: "sun.max.fill")` and before Nazhigai time text:
     - Add conditional arrow rendering
@@ -169,7 +169,7 @@
   - Set arrow color: `foregroundColor(viewModel.design.colorPalette.primaryGold)`
   - Add subtle shadow for visibility
 
-- [ ] T023 [US1] Adjust VStack spacing in `ClockDialView`
+- [x] T023 [US1] Adjust VStack spacing in `ClockDialView`
   - Reduce `VStack(spacing:)` from `width * 0.02` to `width * 0.01` to accommodate arrow
   - Ensure Sun + arrow + time fit without crowding
 

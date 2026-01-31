@@ -32,7 +32,7 @@ class DashboardViewModel: ObservableObject {
         
         // Initial Dummy Data
         self.vedicTime = VedicTime(nazhigai: 0, vinazhigai: 0, percentElapsed: 0, progressIndicatorAngle: 0.0, sunrise: Date(), sunset: Date(), isDaytime: true)
-        self.vedicDate = VedicDate(samvatsara: "year_krodhi", samvatsaraIndex: 38, maasa: "month_margazhi", paksha: .shukla, pakshamIllumination: 0.5, tithi: "tithi_ekadashi", tithiProgress: 0.0, tithiNumber: 11, nakshatra: "nakshatra_multan", nakshatraProgress: 0.0, nakshatraNumber: 16, day: 1)
+        self.vedicDate = VedicDate(samvatsara: "year_krodhi", samvatsaraIndex: 38, maasa: "month_margazhi", paksha: .shukla, pakshamIllumination: 0.5, tithi: "tithi_ekadashi", tithiProgress: 0.0, tithiNumber: 11, nakshatra: "nakshatra_multan", nakshatraProgress: 0.0, nakshatraNumber: 16, day: 1, ayana: .uttarayanam)
         
         setupTimer()
         self.locationManager.requestPermission()

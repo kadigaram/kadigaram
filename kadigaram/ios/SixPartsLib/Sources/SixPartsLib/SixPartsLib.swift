@@ -139,6 +139,14 @@ public struct SixPartsLib {
     ) -> String {
         return Vara.getName(for: date, language: language, timeZone: timeZone)
     }
+
+    /// Calculate current Ayana (Sun's directional movement)
+    /// - Parameter date: Date for calculation
+    /// - Returns: Ayana (Uttarayanam or Dakshinayanam)
+    public static func calculateAyana(for date: Date) -> Ayana {
+        let calculator = AstronomicalCalculator()
+        return calculator.calculateAyana(for: date)
+    }
     
     /// Calculate Gregorian Date for a given Vedic Time (Nazhigai/Vinazhigai) relative to the sunrise of a specific date.
     ///
