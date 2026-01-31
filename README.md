@@ -97,9 +97,80 @@ Water clocks (*Jala Yantra*) in ancient India used a copper bowl with a small ho
 
 ---
 
+## Contributing
+
+We welcome contributions to the Kadigaram project! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
+
+### How to Contribute
+
+1. **Fork the Repository**
+   ```bash
+   git clone https://github.com/kadigaram/kadigaram.git
+   cd kadigaram
+   ```
+
+2. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Make Your Changes**
+   - Follow the existing code style (Swift 6.0 conventions)
+   - Add unit tests for new features
+   - Update documentation as needed
+
+4. **Test Your Changes**
+   ```bash
+   cd kadigaram/ios
+   xcodebuild test -scheme KadigaramCore -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+   ```
+
+5. **Commit and Push**
+   ```bash
+   git add .
+   git commit -m "feat: description of your changes"
+   git push origin feature/your-feature-name
+   ```
+
+6. **Create a Pull Request**
+   - Go to the repository on GitHub
+   - Click "New Pull Request"
+   - Provide a clear description of your changes
+
+### Contribution Guidelines
+
+- **Code Quality**: Follow Swift style guidelines, use meaningful variable names, and add comments for complex logic
+- **Testing**: All new features must include unit tests
+- **Localization**: If adding UI strings, provide translations for both English and Tamil (Sanskrit/Telugu/Malayalam/Kannada optional)
+- **Commit Messages**: Use conventional commits format (`feat:`, `fix:`, `docs:`, `refactor:`, etc.)
+- **Documentation**: Update README.md and inline documentation when adding features
+
+### Areas for Contribution
+
+- 🌐 **Localization**: Add support for Sanskrit (संस्कृत), Telugu (తెలుగు), Malayalam (മലയാളം), Kannada (ಕನ್ನಡ)
+- 📱 **Features**: Additional widgets, complications, or calendar views
+- 🧪 **Testing**: Expand test coverage for astronomical calculations
+- 📚 **Documentation**: Tutorials, examples, or explanatory content
+- 🐛 **Bug Fixes**: Check the issues page for known bugs
+
+### Code of Conduct
+
+- Be respectful and inclusive
+- Provide constructive feedback
+- Focus on what is best for the community
+- Show empathy towards other community members
+
+---
+
 ## License
 
-[Add your license here]
+This project is licensed under the **GNU General Public License v3.0** (GPL-3.0).
+
+- ✅ **Free to use, modify, and distribute**
+- ✅ **Source code must remain open**
+- ✅ **Derivative works must use GPL-3.0**
+
+See the [LICENSE](LICENSE) file for full details, or visit: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 ---
 
