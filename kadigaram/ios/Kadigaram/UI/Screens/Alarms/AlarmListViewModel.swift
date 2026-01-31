@@ -24,11 +24,13 @@ class AlarmListViewModel: ObservableObject {
     }
     
     func removeAlarm(at offsets: IndexSet) {
+        // Capture alarms to delete BEFORE removing from array (prevents race condition)
+        let alarmsToDelete = offsets.map { alarms[$0] }
+        
         // Cleanup system alarms before removing
         Task {
             if #available(iOS 26, *) {
-                for index in offsets {
-                    let alarm = alarms[index]
+                for alarm in alarmsToDelete {
                     if let systemAlarmId = alarm.systemAlarmId {
                         do {
                             try await AlarmKitService.shared.deleteSystemAlarm(id: systemAlarmId)
