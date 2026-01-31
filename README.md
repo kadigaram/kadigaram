@@ -1,8 +1,6 @@
 # Kadigaram
 
-A Vedic Time and Calendar App for iOS.
-
-![Kadigaram Home Screen](assets/homescreen_ios.png)
+A Clock for Ancient Indian time system.
 
 ---
 
@@ -44,6 +42,8 @@ If sunrise is at **6:30 AM** and the current time is **10:30 AM**:
 ---
 
 ## கடிகாரம் (Kadigaram)
+
+<img src="assets/homescreen_ios.png" width="50%" />
 
 ### Meaning & Origin
 
