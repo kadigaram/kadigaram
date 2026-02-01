@@ -201,6 +201,8 @@ public final class AlarmKitService {
         for (index, alarm) in alarms.enumerated() {
             if alarm.addToSystemClock && alarm.isEnabled {
                 // Calculate the alarm time using centralized logic (handles Today/Tomorrow & Noon Normalization)
+                var finalTargetDate: Date?
+                
                 if let targetDate = SixPartsLib.calculateNextOccurrence(
                     nazhigai: alarm.nazhigai,
                     vinazhigai: alarm.vinazhigai,
