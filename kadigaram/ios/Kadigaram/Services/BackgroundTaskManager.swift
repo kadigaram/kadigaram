@@ -101,44 +101,24 @@ public final class BackgroundTaskManager {
                 guard alarm.isEnabled else { continue }
                 
                 if alarm.addToSystemClock {
-                    // Calculate next occurrence
+                    // Calculate next occurrence using centralized logic
                     var targetDate: Date?
                     let now = Date()
                     
                     print("🔍 BackgroundTaskManager: Calculating next occurrence for '\(alarm.label)' (Nazhigai \(alarm.nazhigai):\(alarm.vinazhigai))")
                     
-                    // Try today's sunrise first
-                    let todayDate = SixPartsLib.calculateDate(
+                    targetDate = SixPartsLib.calculateNextOccurrence(
                         nazhigai: alarm.nazhigai,
                         vinazhigai: alarm.vinazhigai,
-                        on: now,
+                        from: Date(),
                         location: location
                     )
                     
-                    if let todayDate = todayDate {
-                        let timeUntil = todayDate.timeIntervalSince(now)
-                        print("   📅 Today's calculation: \(todayDate), time until: \(timeUntil/3600) hours")
-                        
-                        if todayDate > now {
-                            // Calculation is in the future, use it
-                            targetDate = todayDate
-                            print("   ✅ Using today's calculation (alarm is in future)")
-                        } else {
-                            // Today's calculation is in past, try tomorrow
-                            print("   ⏭️ Today's calculation is in past, trying tomorrow")
-                            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: now),
-                               let tomorrowDate = SixPartsLib.calculateDate(
-                                nazhigai: alarm.nazhigai,
-                                vinazhigai: alarm.vinazhigai,
-                                on: tomorrow,
-                                location: location
-                               ) {
-                                targetDate = tomorrowDate
-                                print("   📅 Tomorrow's calculation: \(tomorrowDate)")
-                            }
-                        }
+                    if let target = targetDate {
+                         let timeUntil = target.timeIntervalSince(now)
+                         print("   ✅ Using calculated target: \(target), time until: \(timeUntil/3600) hours")
                     } else {
-                        print("   ❌ Failed to calculate date for today")
+                        print("   ❌ Failed to calculate next occurrence")
                     }
                     
                     if let targetDate = targetDate {

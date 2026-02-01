@@ -21,7 +21,7 @@ Additionally, fixed a critical edge case in **Alarm Scheduling** where late-nigh
 ### Core Logic
 - **HelpContentLoader**: New utility in `KadigaramCore` that loads `Help.md` from the module's localized resources using `Bundle.module`.
 - **SixPartsLib**: Added `calculateNextOccurrence` to centralize alarm logic. It handles "today vs tomorrow" checks and "local noon normalization" (to fix UTC bugs) in one place.
-- **AlarmKitService**, **ViewModel**, **UI**: Refactored to use `SixPartsLib.calculateNextOccurrence`, eliminating code duplication and ensuring consistent behavior across the app.
+- **AlarmKitService**, **ViewModel**, **UI** & **BackgroundTaskManager**: Refactored ALL alarm scheduling points (including background sync) to use `SixPartsLib.calculateNextOccurrence`. This eliminates code duplication and ensures correct scheduling even when the app is in the background.
 - **Resources**: Added `Help.md` files for `en` and `ta` localizations inside `KadigaramCore`.
 
 ### Configuration
