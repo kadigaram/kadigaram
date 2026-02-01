@@ -12,8 +12,8 @@ Also resolved a bug in the language switcher interaction within the menu.
 
 ### UI
 - **DashboardView**: Added "Help" button to the menu and sheet presentation logic. Refactored menu into `menuBar` subview.
-- **LanguageToggle**: Refactored to use `Picker` instead of `Button`+`Sheet` to resolve interaction issues inside `Menu`.
-- **HelpView**: New view in **KadigaramCore** that renders Markdown content.
+- **LanguageToggle**: Refactored to use `Picker` instead of `Button`+`Sheet`.
+- **HelpView**: Implemented custom Markdown parser to support Headers (#, ##) and Lists using standard SwiftUI fonts (`.largeTitle`, `.title2`) for better readability.
 
 ### Core Logic
 - **HelpContentLoader**: New utility in `KadigaramCore` that loads `Help.md` from the module's localized resources using `Bundle.module`.

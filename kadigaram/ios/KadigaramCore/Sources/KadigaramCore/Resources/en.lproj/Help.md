@@ -14,11 +14,11 @@ The arrow in the center shows the Sun's annual journey:
 
 ## 🌙 Moon Phases
 - The **outer ring** shows the moon phase (Tithi).
-- **Shukla Paksha** (Waxing): Moon grows brighter 🌕
-- **Krishna Paksha** (Waning): Moon grows darker 🌑
+- **Shukla Paksha** (Waxing): Moon grows brighter represented with ^ 🌕
+- **Krishna Paksha** (Waning): Moon grows darker represented with v 🌑
 
 ## 📍 Location
 Time is calculated based on your location's sunrise. You can update this in **Settings**.
 
 ## ⏰ Alarms
-Set alarms based on Nazhigai time. The app will wake you up at the precise Vedic time, adjusting for sunrise daily.
+Set alarms based on Nazhigai time. The app will alarm at the accurate Nazhigai/Ghatika time, auto adjusting for sunrise daily.
