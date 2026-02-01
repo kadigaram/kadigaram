@@ -185,6 +185,7 @@ public struct SixPartsLib {
         let formatter = ISO8601DateFormatter()
         print("📊 SixPartsLib.calculateDate() | Nazhigai \(nazhigai):\(vinazhigai) | RefDate: \(date) | Location: (\(location.latitude), \(location.longitude)) | Sunrise: \(sunrise) | ✅ Result: \(formatter.string(from: result))")
         
+        return result
     }
     
     /// Calculate the NEXT valid occurrence of a Nazhigai time relative to a reference date (usually 'now').
