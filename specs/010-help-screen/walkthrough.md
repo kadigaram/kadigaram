@@ -8,6 +8,8 @@ Added a multilingual Help Screen to the Dashboard, accessible via the "..." menu
 
 Also resolved a bug in the language switcher interaction within the menu.
 
+Additionally, fixed a critical edge case in **Alarm Scheduling** where late-night Nazhigai alarms (falling in the next Gregorian morning) were being skipped.
+
 ## Changes
 
 ### UI
@@ -16,7 +18,9 @@ Also resolved a bug in the language switcher interaction within the menu.
 - **HelpView**: Implemented custom Markdown parser to support Headers (#, ##) and Lists using standard SwiftUI fonts (`.largeTitle`, `.title2`) for better readability.
 
 ### Core Logic
+### Core Logic
 - **HelpContentLoader**: New utility in `KadigaramCore` that loads `Help.md` from the module's localized resources using `Bundle.module`.
+- **AlarmKitService**: (Fix) Updated scheduling logic to check "Today's" sunrise cycle first. If the calculated time is in the future relative to now, it is used, preventing alarms from skipping a day.
 - **Resources**: Added `Help.md` files for `en` and `ta` localizations inside `KadigaramCore`.
 
 ### Configuration

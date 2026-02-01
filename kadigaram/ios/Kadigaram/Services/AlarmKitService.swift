@@ -200,13 +200,36 @@ public final class AlarmKitService {
         
         for (index, alarm) in alarms.enumerated() {
             if alarm.addToSystemClock && alarm.isEnabled {
-                // Calculate the alarm time for tomorrow
-                if let targetDate = SixPartsLib.calculateDate(
+                // Calculate the alarm time
+                // FIX: Check today first. If the calculated time for "today's" naxhigai is in the future (e.g. 55th Nazhigai is tomorrow morning), use it.
+                // Otherwise fall back to tomorrow.
+                
+                var finalTargetDate: Date?
+                let now = Date()
+                
+                // 1. Try calculating for Today
+                if let todayTarget = SixPartsLib.calculateDate(
                     nazhigai: alarm.nazhigai,
                     vinazhigai: alarm.vinazhigai,
-                    on: tomorrow,
+                    on: now,
                     location: location
                 ) {
+                    if todayTarget > now {
+                        finalTargetDate = todayTarget
+                    }
+                }
+                
+                // 2. If today isn't valid (passed), try Tomorrow
+                if finalTargetDate == nil {
+                    finalTargetDate = SixPartsLib.calculateDate(
+                        nazhigai: alarm.nazhigai,
+                        vinazhigai: alarm.vinazhigai,
+                        on: tomorrow,
+                        location: location
+                    )
+                }
+                
+                if let targetDate = finalTargetDate {
                     do {
                         if let alarmId = try await createOrUpdateSystemAlarm(for: alarm, targetDate: targetDate) {
                             updatedAlarms[index].systemAlarmId = alarmId
