@@ -20,7 +20,7 @@ Additionally, fixed a critical edge case in **Alarm Scheduling** where late-nigh
 ### Core Logic
 ### Core Logic
 - **HelpContentLoader**: New utility in `KadigaramCore` that loads `Help.md` from the module's localized resources using `Bundle.module`.
-- **AlarmKitService**: (Fix) Updated scheduling logic to check "Today's" sunrise cycle first. **Crucially**, we normalize the reference date to local Noon to preventing UTC date shifts (e.g. evening in EST is tomorrow in UTC) from causing the solar calculator to skip a day.
+- **AlarmKitService** & **AlarmListViewModel**: (Fix) Updated scheduling logic to check "Today's" sunrise cycle first. **Crucially**, we normalize the reference date to local Noon to preventing UTC date shifts from skipping a day. Logic was fixed in both the Service and ViewModel (where duplicates existed).
 - **Resources**: Added `Help.md` files for `en` and `ta` localizations inside `KadigaramCore`.
 
 ### Configuration
@@ -43,6 +43,8 @@ Additionally, fixed a critical edge case in **Alarm Scheduling** where late-nigh
 
 ## Modified Files
 - `kadigaram/ios/Kadigaram/UI/Screens/DashboardView.swift`
+- `kadigaram/ios/Kadigaram/UI/Screens/Alarms/AlarmListViewModel.swift`
+- `kadigaram/ios/Kadigaram/Services/AlarmKitService.swift`
 - `kadigaram/ios/KadigaramCore/Sources/KadigaramCore/UI/Screens/HelpView.swift` [NEW]
 - `kadigaram/ios/KadigaramCore/Sources/KadigaramCore/Loaders/HelpContentLoader.swift` [NEW]
 - `kadigaram/ios/KadigaramCore/Sources/KadigaramCore/Resources/en.lproj/Help.md` [NEW]

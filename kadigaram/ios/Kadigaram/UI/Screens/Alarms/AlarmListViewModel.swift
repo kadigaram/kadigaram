@@ -123,11 +123,15 @@ class AlarmListViewModel: ObservableObject {
                         
                         print("🔍 AlarmListViewModel: Calculating next occurrence for '\(alarm.label)' (Nazhigai \(alarm.nazhigai):\(alarm.vinazhigai))")
                         
-                        // Try today's sunrise first
+                        // FIX: Normalize to Local Noon to avoid UTC date boundary issues
+                        let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
+                        print("🐞 ViewModel DEBUG: Calculating for '\(alarm.label)'. Now=\(now), Noon=\(todayNoon)")
+                        
+                        // 1. Try today's sunrise first (using Noon reference)
                         let todayDate = SixPartsLib.calculateDate(
                             nazhigai: alarm.nazhigai,
                             vinazhigai: alarm.vinazhigai,
-                            on: now,
+                            on: todayNoon,
                             location: location
                         )
                         
@@ -142,11 +146,12 @@ class AlarmListViewModel: ObservableObject {
                             } else {
                                 // Today's calculation is in past, try tomorrow
                                 print("   ⏭️ Today's calculation is in past, trying tomorrow")
-                                if let tomorrow = calendar.date(byAdding: .day, value: 1, to: now),
-                                   let tomorrowDate = SixPartsLib.calculateDate(
+                                // Use Noon Tomorrow
+                                let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
+                                if let tomorrowDate = SixPartsLib.calculateDate(
                                     nazhigai: alarm.nazhigai,
                                     vinazhigai: alarm.vinazhigai,
-                                    on: tomorrow,
+                                    on: tomorrowNoon,
                                     location: location
                                    ) {
                                     targetDate = tomorrowDate
