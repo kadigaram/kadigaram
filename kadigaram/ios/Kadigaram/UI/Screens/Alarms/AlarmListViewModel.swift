@@ -123,43 +123,19 @@ class AlarmListViewModel: ObservableObject {
                         
                         print("🔍 AlarmListViewModel: Calculating next occurrence for '\(alarm.label)' (Nazhigai \(alarm.nazhigai):\(alarm.vinazhigai))")
                         
-                        // FIX: Normalize to Local Noon to avoid UTC date boundary issues
-                        let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
-                        print("🐞 ViewModel DEBUG: Calculating for '\(alarm.label)'. Now=\(now), Noon=\(todayNoon)")
-                        
-                        // 1. Try today's sunrise first (using Noon reference)
-                        let todayDate = SixPartsLib.calculateDate(
+                        // FIX: Use centralized logic from SixPartsLib
+                        targetDate = SixPartsLib.calculateNextOccurrence(
                             nazhigai: alarm.nazhigai,
                             vinazhigai: alarm.vinazhigai,
-                            on: todayNoon,
+                            from: now,
                             location: location
                         )
                         
-                        if let todayDate = todayDate {
-                            let timeUntil = todayDate.timeIntervalSince(now)
-                            print("   📅 Today's calculation: \(todayDate), time until: \(timeUntil/3600) hours")
-                            
-                            if todayDate > now {
-                                // Calculation is in the future, use it
-                                targetDate = todayDate
-                                print("   ✅ Using today's calculation (alarm is in future)")
-                            } else {
-                                // Today's calculation is in past, try tomorrow
-                                print("   ⏭️ Today's calculation is in past, trying tomorrow")
-                                // Use Noon Tomorrow
-                                let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
-                                if let tomorrowDate = SixPartsLib.calculateDate(
-                                    nazhigai: alarm.nazhigai,
-                                    vinazhigai: alarm.vinazhigai,
-                                    on: tomorrowNoon,
-                                    location: location
-                                   ) {
-                                    targetDate = tomorrowDate
-                                    print("   📅 Tomorrow's calculation: \(tomorrowDate)")
-                                }
-                            }
+                        if let target = targetDate {
+                            let timeUntil = target.timeIntervalSince(now)
+                            print("   ✅ Calculated Target: \(target), time until: \(timeUntil/3600) hours")
                         } else {
-                            print("   ❌ Failed to calculate date for today")
+                            print("   ❌ Failed to calculate next occurrence")
                         }
                         
                         if let targetDate = targetDate {

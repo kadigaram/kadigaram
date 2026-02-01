@@ -185,7 +185,62 @@ public struct SixPartsLib {
         let formatter = ISO8601DateFormatter()
         print("📊 SixPartsLib.calculateDate() | Nazhigai \(nazhigai):\(vinazhigai) | RefDate: \(date) | Location: (\(location.latitude), \(location.longitude)) | Sunrise: \(sunrise) | ✅ Result: \(formatter.string(from: result))")
         
-        return result
+    }
+    
+    /// Calculate the NEXT valid occurrence of a Nazhigai time relative to a reference date (usually 'now').
+    ///
+    /// This method encapsulates the logic to:
+    /// 1. Normalize the calculation date to Local Noon to avoid UTC date boundary issues.
+    /// 2. Check if the "current day's" Nazhigai time is still in the future.
+    /// 3. If passed, automatically roll over to the next day.
+    ///
+    /// - Parameters:
+    ///   - nazhigai: Target Nazhigai
+    ///   - vinazhigai: Target Vinazhigai
+    ///   - referenceDate: The starting point for "now" (default: Date())
+    ///   - location: User location
+    ///   - timeZone: User timezone (default: .current)
+    /// - Returns: The verified next occurrence Date
+    public static func calculateNextOccurrence(
+        nazhigai: Int,
+        vinazhigai: Int,
+        from referenceDate: Date = Date(),
+        location: CLLocationCoordinate2D,
+        timeZone: TimeZone = .current
+    ) -> Date? {
+        var calendar = Calendar.current
+        calendar.timeZone = timeZone
+        
+        // Normalize to Local Noon to avoid UTC date boundary issues (e.g. 8PM EST is tomorrow in UTC)
+        // Using Noon ensures we are safely in the middle of the local day.
+        let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: referenceDate) ?? referenceDate
+        
+        // 1. Try calculating for "Today" (using Noon reference)
+        if let todayTarget = calculateDate(
+            nazhigai: nazhigai,
+            vinazhigai: vinazhigai,
+            on: todayNoon,
+            location: location,
+            timeZone: timeZone
+        ) {
+            // If the calculated time is in the future relative to our reference (now), use it.
+            if todayTarget > referenceDate {
+                return todayTarget
+            }
+        }
+        
+        // 2. If "Today" calculation is in the past, move to "Tomorrow" (using Noon reference)
+        guard let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) else {
+            return nil
+        }
+        
+        return calculateDate(
+            nazhigai: nazhigai,
+            vinazhigai: vinazhigai,
+            on: tomorrowNoon,
+            location: location,
+            timeZone: timeZone
+        )
     }
 }
 import Solar // Ensure Solar is imported at file level if not already (it was imported in file view, confirming)

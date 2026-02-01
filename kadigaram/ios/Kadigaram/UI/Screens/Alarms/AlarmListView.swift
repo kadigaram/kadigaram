@@ -73,35 +73,13 @@ struct AlarmRowView: View {
     private var nextScheduledTime: Date? {
         guard let location = locationManager.location else { return nil }
         
-        let calendar = Calendar.current
-        
-        // FIX: Normalize to Local Noon to avoid UTC date boundary issues
-        let now = Date()
-        let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
-        
-        // Try today first (using Noon reference)
-        if let todayDate = SixPartsLib.calculateDate(
+        // FIX: Use centralized logic from SixPartsLib
+        return SixPartsLib.calculateNextOccurrence(
             nazhigai: alarm.nazhigai,
             vinazhigai: alarm.vinazhigai,
-            on: todayNoon,
+            from: Date(),
             location: location
-        ), todayDate > now {
-            return todayDate
-        }
-        
-        // Try tomorrow (using Noon reference)
-        let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
-        
-        if let tomorrowDate = SixPartsLib.calculateDate(
-            nazhigai: alarm.nazhigai,
-            vinazhigai: alarm.vinazhigai,
-            on: tomorrowNoon,
-            location: location
-           ) {
-            return tomorrowDate
-        }
-        
-        return nil
+        )
     }
     
     /// Format the next scheduled time for display in local timezone
