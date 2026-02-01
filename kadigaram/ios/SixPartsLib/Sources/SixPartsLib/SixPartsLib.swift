@@ -212,9 +212,27 @@ public struct SixPartsLib {
         var calendar = Calendar.current
         calendar.timeZone = timeZone
         
-        // Normalize to Local Noon to avoid UTC date boundary issues (e.g. 8PM EST is tomorrow in UTC)
-        // Using Noon ensures we are safely in the middle of the local day.
+        // Normalize to Local Noon to avoid UTC date boundary issues
         let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: referenceDate) ?? referenceDate
+        
+        // 0. CHECK YESTERDAY FIRST (Midnight Edge Case)
+        // If we are in the early morning (e.g. 00:05 AM), we might still be in the "previous day's" Vedic cycle.
+        // e.g. 55th Nazhigai of Yesterday might be at 04:30 AM Today.
+        // If we only check Today, we'd start from Today's Sunrise (06:30 AM) and jump to Tomorrow (04:30 AM).
+        if let yesterdayNoon = calendar.date(byAdding: .day, value: -1, to: todayNoon) {
+            if let yesterdayTarget = calculateDate(
+                nazhigai: nazhigai,
+                vinazhigai: vinazhigai,
+                on: yesterdayNoon,
+                location: location,
+                timeZone: timeZone
+            ) {
+                // If yesterday's cycle yields a time that is still in the future relative to "now", USE IT.
+                if yesterdayTarget > referenceDate {
+                    return yesterdayTarget
+                }
+            }
+        }
         
         // 1. Try calculating for "Today" (using Noon reference)
         if let todayTarget = calculateDate(
@@ -224,7 +242,6 @@ public struct SixPartsLib {
             location: location,
             timeZone: timeZone
         ) {
-            // If the calculated time is in the future relative to our reference (now), use it.
             if todayTarget > referenceDate {
                 return todayTarget
             }
