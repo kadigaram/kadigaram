@@ -75,22 +75,27 @@ struct AlarmRowView: View {
         
         let calendar = Calendar.current
         
-        // Try today first
+        // FIX: Normalize to Local Noon to avoid UTC date boundary issues
+        let now = Date()
+        let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
+        
+        // Try today first (using Noon reference)
         if let todayDate = SixPartsLib.calculateDate(
             nazhigai: alarm.nazhigai,
             vinazhigai: alarm.vinazhigai,
-            on: Date(),
+            on: todayNoon,
             location: location
-        ), todayDate > Date() {
+        ), todayDate > now {
             return todayDate
         }
         
-        // Try tomorrow
-        if let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date()),
-           let tomorrowDate = SixPartsLib.calculateDate(
+        // Try tomorrow (using Noon reference)
+        let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
+        
+        if let tomorrowDate = SixPartsLib.calculateDate(
             nazhigai: alarm.nazhigai,
             vinazhigai: alarm.vinazhigai,
-            on: tomorrow,
+            on: tomorrowNoon,
             location: location
            ) {
             return tomorrowDate
