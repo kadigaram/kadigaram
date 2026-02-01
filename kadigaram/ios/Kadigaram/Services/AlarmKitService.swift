@@ -201,17 +201,24 @@ public final class AlarmKitService {
         for (index, alarm) in alarms.enumerated() {
             if alarm.addToSystemClock && alarm.isEnabled {
                 // Calculate the alarm time
-                // FIX: Check today first. If the calculated time for "today's" naxhigai is in the future (e.g. 55th Nazhigai is tomorrow morning), use it.
-                // Otherwise fall back to tomorrow.
+                // FIX: Check today first.
+                // IMPORTANT: Normalize "today" to NOON local time. 
+                // Why? If it's 8 PM EST (Jan 31), that's 1 AM UTC (Feb 1). 
+                // If the solar calculator uses UTC day date, it might calculate for Tomorrow (Feb 1) instead of Today (Jan 31).
+                // By forcing noon local time (e.g. 12 PM EST), we get 5 PM UTC (Jan 31), ensuring we stay on the correct day.
                 
+                let calendar = Calendar.current
                 var finalTargetDate: Date?
                 let now = Date()
                 
-                // 1. Try calculating for Today
+                // Get Noon Today
+                let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
+                
+                // 1. Try calculating for Today (using Noon reference)
                 if let todayTarget = SixPartsLib.calculateDate(
                     nazhigai: alarm.nazhigai,
                     vinazhigai: alarm.vinazhigai,
-                    on: now,
+                    on: todayNoon,
                     location: location
                 ) {
                     if todayTarget > now {
@@ -221,10 +228,13 @@ public final class AlarmKitService {
                 
                 // 2. If today isn't valid (passed), try Tomorrow
                 if finalTargetDate == nil {
+                     // Get Noon Tomorrow
+                    let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
+                    
                     finalTargetDate = SixPartsLib.calculateDate(
                         nazhigai: alarm.nazhigai,
                         vinazhigai: alarm.vinazhigai,
-                        on: tomorrow,
+                        on: tomorrowNoon,
                         location: location
                     )
                 }

@@ -20,7 +20,7 @@ Additionally, fixed a critical edge case in **Alarm Scheduling** where late-nigh
 ### Core Logic
 ### Core Logic
 - **HelpContentLoader**: New utility in `KadigaramCore` that loads `Help.md` from the module's localized resources using `Bundle.module`.
-- **AlarmKitService**: (Fix) Updated scheduling logic to check "Today's" sunrise cycle first. If the calculated time is in the future relative to now, it is used, preventing alarms from skipping a day.
+- **AlarmKitService**: (Fix) Updated scheduling logic to check "Today's" sunrise cycle first. **Crucially**, we normalize the reference date to local Noon to preventing UTC date shifts (e.g. evening in EST is tomorrow in UTC) from causing the solar calculator to skip a day.
 - **Resources**: Added `Help.md` files for `en` and `ta` localizations inside `KadigaramCore`.
 
 ### Configuration
