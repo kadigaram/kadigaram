@@ -213,6 +213,7 @@ public final class AlarmKitService {
                 
                 // Get Noon Today
                 let todayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: now) ?? now
+                print("🐞 DEBUG: Now=\(now), Noon=\(todayNoon)")
                 
                 // 1. Try calculating for Today (using Noon reference)
                 if let todayTarget = SixPartsLib.calculateDate(
@@ -221,15 +222,19 @@ public final class AlarmKitService {
                     on: todayNoon,
                     location: location
                 ) {
+                    print("🐞 DEBUG: TodayTarget=\(todayTarget) (Is Future: \(todayTarget > now))")
                     if todayTarget > now {
                         finalTargetDate = todayTarget
                     }
+                } else {
+                    print("🐞 DEBUG: TodayTarget calculation returned nil")
                 }
                 
                 // 2. If today isn't valid (passed), try Tomorrow
                 if finalTargetDate == nil {
                      // Get Noon Tomorrow
                     let tomorrowNoon = calendar.date(byAdding: .day, value: 1, to: todayNoon) ?? todayNoon
+                    print("🐞 DEBUG: Trying Tomorrow Noon=\(tomorrowNoon)")
                     
                     finalTargetDate = SixPartsLib.calculateDate(
                         nazhigai: alarm.nazhigai,
@@ -237,6 +242,7 @@ public final class AlarmKitService {
                         on: tomorrowNoon,
                         location: location
                     )
+                     print("🐞 DEBUG: TomorrowTarget=\(String(describing: finalTargetDate))")
                 }
                 
                 if let targetDate = finalTargetDate {
