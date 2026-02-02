@@ -21,27 +21,20 @@ public struct MoonPhaseView: View {
                 Image(systemName: Self.arrowSymbolName(for: paksha))
                     .font(.caption2)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white) // Always white
             }
             
             Image(systemName: moonSymbolName)
-                .renderingMode(.template) // Use template mode instead of original
+                .renderingMode(.original)
                 .font(.title3)
-                .foregroundColor(.white) // Always white moon
             
             // Down arrow below moon for waning (Krishna)
             if showPakshaArrow && paksha == .krishna {
                 Image(systemName: Self.arrowSymbolName(for: paksha))
                     .font(.caption2)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white) // Always white
             }
         }
-        .padding(8) // Add padding around the moon
-        .background(
-            Circle()
-                .fill(Color.black.opacity(0.8)) // Dark background circle
-        )
+        .environment(\.colorScheme, .dark) // Force dark mode appearance for consistent moon colors
         .accessibilityLabel(accessibilityLabel)
         .accessibilityValue("\(Int(illumination * 100))% illuminated")
     }
