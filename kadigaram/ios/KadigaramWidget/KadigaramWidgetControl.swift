@@ -12,7 +12,7 @@ import WidgetKit
 struct KadigaramWidgetControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(
-            kind: "com.kadigaram.kadigaram.KadigaramWidget",
+            kind: "com.dhilipkumars.kadigaram.KadigaramWidget",
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
