@@ -11,6 +11,27 @@ public class TamilCalendarCalculator {
         self.astronomicalCalculator = AstronomicalCalculator()
     }
     
+    // MARK: - Types
+
+    public enum Ritu: String, CaseIterable {
+        case vasanta = "ritu_vasanta"
+        case grishma = "ritu_grishma"
+        case varsha = "ritu_varsha"
+        case sharad = "ritu_sharad"
+        case hemanta = "ritu_hemanta"
+        case shishira = "ritu_shishira"
+        
+        public var localizedName: String {
+            NSLocalizedString(self.rawValue, bundle: .main, comment: "Ritu Name")
+        }
+        
+        public var iconName: String {
+            return self.rawValue // e.g. "ritu_vasanta" matches file name "ritu_vasanta.png"
+        }
+    }
+
+
+
     // MARK: - Public API
     
     /// Calculate Tamil calendar date for given date/location
@@ -33,6 +54,24 @@ public class TamilCalendarCalculator {
         let monthName = tamilMonthName(for: rasiIndex)
         let rasiDegree = Double(rasiIndex) * 30.0
         
+        // Calculate Ritu based on Rasi Index (Solar Month)
+        // 0-Chithirai, 1-Vaigasi -> Vasanta
+        // 2-Aani, 3-Aadi -> Grishma
+        // 4-Aavani, 5-Purattasi -> Varsha
+        // 6-Aippasi, 7-Karthigai -> Sharad
+        // 8-Margazhi, 9-Thai -> Hemanta
+        // 10-Masi, 11-Panguni -> Shishira
+        let normalizedIndex = rasiIndex % 12
+        let ritu: Ritu
+        switch normalizedIndex {
+        case 0, 1: ritu = .vasanta
+        case 2, 3: ritu = .grishma
+        case 4, 5: ritu = .varsha
+        case 6, 7: ritu = .sharad
+        case 8, 9: ritu = .hemanta
+        default:   ritu = .shishira
+        }
+        
         // Step 3: Find exact Sankranti timestamp
         guard let sankrantiTime = findSankranti(targetDegree: rasiDegree, searchEnd: date) else {
             // Fallback if Sankranti not found (should not happen in normal circumstances)
@@ -41,7 +80,8 @@ public class TamilCalendarCalculator {
                 dayNumber: 1,
                 sankrantiTimestamp: date,
                 dayOneDate: date,
-                rasiDegree: rasiDegree
+                rasiDegree: rasiDegree,
+                ritu: ritu
             )
         }
         
@@ -71,7 +111,8 @@ public class TamilCalendarCalculator {
             dayNumber: max(1, tamilDayNumber),
             sankrantiTimestamp: sankrantiTime,
             dayOneDate: dayOneDate,
-            rasiDegree: rasiDegree
+            rasiDegree: rasiDegree,
+            ritu: ritu
         )
     }
     

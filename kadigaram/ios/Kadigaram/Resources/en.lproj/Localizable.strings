@@ -4,6 +4,7 @@
 "label_tithi" = "Tithi";
 "label_nakshatra" = "Nakshatra";
 
+
 /* Months */
 "month_chithirai" = "Chithirai";
 "month_vaigasi" = "Vaigasi";
@@ -30,6 +31,7 @@
 "month_pausha" = "Pausha";
 "month_magha" = "Magha";
 "month_phalguna" = "Phalguna";
+
 
 /* Samvatsaras (60 Years) */
 "year_prabhava" = "Prabhava";
@@ -93,6 +95,7 @@
 "year_krodhana" = "Krodhana";
 "year_akshaya" = "Akshaya";
 
+
 /* Tithis */
 "tithi_pratipada" = "Pratipada";
 "tithi_dwitiya" = "Dwitiya";
@@ -110,6 +113,7 @@
 "tithi_chaturdashi" = "Chaturdashi";
 "tithi_purnima" = "Purnima";
 "tithi_amavasya" = "Amavasya";
+
 
 /* Tamil Tithi Names */
 "tithi_prathamai" = "Prathamai";
@@ -155,3 +159,13 @@
 "nakshatra_purva_bhadrapada" = "Purva Bhadrapada";
 "nakshatra_uttara_bhadrapada" = "Uttara Bhadrapada";
 "nakshatra_revati" = "Revati";
+
+
+
+/* Ritu (Seasons) - English */
+"ritu_vasanta" = "Spring";
+"ritu_grishma" = "Summer";
+"ritu_varsha" = "Monsoon";
+"ritu_sharad" = "Autumn";
+"ritu_hemanta" = "Pre-winter";
+"ritu_shishira" = "Winter";

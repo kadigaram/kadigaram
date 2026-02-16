@@ -8,3 +8,12 @@
 "nakshatra_visakam" = "विशाखा";
 "label_tithi" = "तिथिः";
 "label_nakshatra" = "नक्षत्रम्";
+
+
+/* Ritu (Seasons) - Sanskrit (Devanagari) */
+"ritu_vasanta" = "वसन्त";
+"ritu_grishma" = "ग्रीष्म";
+"ritu_varsha" = "वर्षा";
+"ritu_sharad" = "शरद";
+"ritu_hemanta" = "हेमन्त";
+"ritu_shishira" = "शिशिर";

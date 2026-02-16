@@ -128,3 +128,12 @@
 "nakshatra_purva_bhadrapada" = "பூரட்டாதி";
 "nakshatra_uttara_bhadrapada" = "உத்திரட்டாதி";
 "nakshatra_revati" = "ரேவதி";
+
+
+/* Ritu (Seasons) - Sanskrit words in Tamil Script */
+"ritu_vasanta" = "வசந்த";   // Vasanta
+"ritu_grishma" = "கிரீஷ்ம"; // Grishma
+"ritu_varsha" = "வர்ஷ";    // Varsha
+"ritu_sharad" = "ஷரத்";    // Sharad (sometimes written as சரத்)
+"ritu_hemanta" = "ஹேமந்த"; // Hemanta
+"ritu_shishira" = "ஷிஷிர";  // Shishira (sometimes written as சிசிர)

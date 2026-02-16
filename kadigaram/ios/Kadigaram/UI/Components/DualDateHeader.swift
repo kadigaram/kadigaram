@@ -46,10 +46,21 @@ struct DualDateHeader: View {
                 }
             }
             
-            // T005: Bottom Line - Nakshatra (localized)
-            Text(bhashaEngine.localizedString(vedicDate.nakshatra))
-                .font(.subheadline)
-                .foregroundColor(theme.secondaryForegroundColor)
+            // T005: Bottom Line - Nakshatra (localized) and Ritu
+            HStack(spacing: 12) {
+                Text(bhashaEngine.localizedString(vedicDate.nakshatra))
+                    .font(.subheadline)
+                    .foregroundColor(theme.secondaryForegroundColor)
+                
+                if let ritu = vedicDate.ritu {
+                    // Separator
+                    Text("•")
+                        .foregroundColor(theme.secondaryForegroundColor)
+                    
+                    RituView(ritu: ritu)
+                        .foregroundStyle(theme.secondaryForegroundColor)
+                }
+            }
         }
         .padding()
         .background(Color.secondary.opacity(0.1))

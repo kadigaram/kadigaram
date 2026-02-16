@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 import Solar
-import SixPartsLib  // Import for VedicDate, CalendarSystem, Paksha, AstronomicalCalculator
+import SixPartsLib
 
 public protocol VedicEngineProvider {
     func calculateVedicTime(date: Date, location: CLLocationCoordinate2D, astronomicalEngine: AstronomicalEngineProvider, timeZone: TimeZone) -> VedicTime
@@ -62,7 +62,39 @@ public class VedicEngine: VedicEngineProvider {
         let nakshatraName = Self.nakshatraNameFromNumber(nakshatraNumber)
         
         // Maasa calculation (simplified - would need solar ingress times for full accuracy)
-        let monthName = Self.maasaFromDate(date, calendarSystem: calendarSystem)
+        // Re-calculate sun longitude here for Ritu and Maasa to keep them consistent
+        let locationForSun = CLLocationCoordinate2D(latitude: 13.0, longitude: 80.0) // Default for maasa/ritu
+        let sunLon = calculator.sunLongitude(date: date, location: locationForSun)
+        let monthIndex = Int(sunLon / 30.0) % 12
+        
+        let monthName: String
+        if calendarSystem == .solar {
+             let solarMonths = [
+                "month_chithirai", "month_vaigasi", "month_aani", "month_aadi",
+                "month_aavani", "month_purattasi", "month_aippasi", "month_karthigai",
+                "month_margazhi", "month_thai", "month_masi", "month_panguni"
+            ]
+            monthName = solarMonths[monthIndex]
+        } else {
+            monthName = Self.maasaFromDate(date, calendarSystem: calendarSystem)
+        }
+        
+        // Calculate Ritu
+        // 0-Chithirai, 1-Vaigasi -> Vasanta
+        // 2-Aani, 3-Aadi -> Grishma
+        // 4-Aavani, 5-Purattasi -> Varsha
+        // 6-Aippasi, 7-Karthigai -> Sharad
+        // 8-Margazhi, 9-Thai -> Hemanta
+        // 10-Masi, 11-Panguni -> Shishira
+        let ritu: TamilCalendarCalculator.Ritu
+        switch monthIndex {
+        case 0, 1: ritu = .vasanta
+        case 2, 3: ritu = .grishma
+        case 4, 5: ritu = .varsha
+        case 6, 7: ritu = .sharad
+        case 8, 9: ritu = .hemanta
+        default:   ritu = .shishira
+        }
         
         // Calculate Ayana (Feature 009)
         let ayana = calculator.calculateAyana(for: date)
@@ -80,7 +112,8 @@ public class VedicEngine: VedicEngineProvider {
             nakshatraProgress: nakshatraProgress,
             nakshatraNumber: nakshatraNumber,
             day: day,
-            ayana: ayana
+            ayana: ayana,
+            ritu: ritu
         )
     }
     
