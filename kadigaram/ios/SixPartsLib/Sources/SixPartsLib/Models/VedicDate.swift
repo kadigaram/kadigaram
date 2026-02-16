@@ -26,6 +26,7 @@ public struct VedicDate: Equatable, Sendable {
     public let nakshatraNumber: Int        // Nakshatra number 1-27
     public let day: Int                    // Day of month
     public let ayana: Ayana                // Sun's directional movement (Feature 009)
+    public let ritu: TamilCalendarCalculator.Ritu? // Season (Feature 011) - Optional as it comes from Tamil Calendar
 
     
     public init(
@@ -41,7 +42,8 @@ public struct VedicDate: Equatable, Sendable {
         nakshatraProgress: Double,
         nakshatraNumber: Int,
         day: Int,
-        ayana: Ayana
+        ayana: Ayana,
+        ritu: TamilCalendarCalculator.Ritu? = nil
     ) {
         self.samvatsara = samvatsara
         self.samvatsaraIndex = samvatsaraIndex
@@ -56,6 +58,7 @@ public struct VedicDate: Equatable, Sendable {
         self.nakshatraNumber = nakshatraNumber
         self.day = day
         self.ayana = ayana
+        self.ritu = ritu
     }
 }
 
@@ -75,18 +78,23 @@ public struct TamilDate {
     
     /// Rasi boundary degree (0, 30, 60, ..., 330)
     public let rasiDegree: Double
+
+    /// Season (Feature 011)
+    public let ritu: TamilCalendarCalculator.Ritu
     
     public init(
         monthName: String,
         dayNumber: Int,
         sankrantiTimestamp: Date,
         dayOneDate:Date,
-        rasiDegree: Double
+        rasiDegree: Double,
+        ritu: TamilCalendarCalculator.Ritu
     ) {
         self.monthName = monthName
         self.dayNumber = dayNumber
         self.sankrantiTimestamp = sankrantiTimestamp
         self.dayOneDate = dayOneDate
         self.rasiDegree = rasiDegree
+        self.ritu = ritu
     }
 }
